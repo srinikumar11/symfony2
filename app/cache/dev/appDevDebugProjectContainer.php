@@ -2708,6 +2708,40 @@ class appDevDebugProjectContainer extends Container
                                 0 => 'new',
                             ),
                         ),
+                        'form' => array(
+                            'groups' => array(
+                                'listing' => array(
+                                    'caption' => 'Listing',
+                                    'break_after' => true,
+                                    'fields' => array(
+                                        0 => 'ad_title',
+                                        1 => 'ad_text',
+                                    ),
+                                ),
+                                'status' => array(
+                                    'caption' => 'Status',
+                                    'fields' => array(
+                                        0 => 'published',
+                                        1 => 'expires_at',
+                                    ),
+                                    'break_after' => false,
+                                ),
+                            ),
+                            'template' => 'LyraAdminBundle:Admin:form.html.twig',
+                            'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
+                            'new' => array(
+                                'title' => 'New',
+                                'groups' => array(
+
+                                ),
+                            ),
+                            'edit' => array(
+                                'title' => 'Edit',
+                                'groups' => array(
+
+                                ),
+                            ),
+                        ),
                         'filter' => array(
                             'title' => 'Search listings',
                             'fields' => array(
@@ -2726,25 +2760,6 @@ class appDevDebugProjectContainer extends Container
                         'trans_domain' => 'LyraAdminBundle',
                         'fields' => array(
 
-                        ),
-                        'form' => array(
-                            'template' => 'LyraAdminBundle:Admin:form.html.twig',
-                            'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
-                            'groups' => array(
-
-                            ),
-                            'new' => array(
-                                'title' => 'New',
-                                'groups' => array(
-
-                                ),
-                            ),
-                            'edit' => array(
-                                'title' => 'Edit',
-                                'groups' => array(
-
-                                ),
-                            ),
                         ),
                         'services' => array(
                             'model_manager' => 'lyra_admin.default.model_manager',
@@ -2927,6 +2942,40 @@ class appDevDebugProjectContainer extends Container
                         0 => 'new',
                     ),
                 ),
+                'form' => array(
+                    'groups' => array(
+                        'listing' => array(
+                            'caption' => 'Listing',
+                            'break_after' => true,
+                            'fields' => array(
+                                0 => 'ad_title',
+                                1 => 'ad_text',
+                            ),
+                        ),
+                        'status' => array(
+                            'caption' => 'Status',
+                            'fields' => array(
+                                0 => 'published',
+                                1 => 'expires_at',
+                            ),
+                            'break_after' => false,
+                        ),
+                    ),
+                    'template' => 'LyraAdminBundle:Admin:form.html.twig',
+                    'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
+                    'new' => array(
+                        'title' => 'New',
+                        'groups' => array(
+
+                        ),
+                    ),
+                    'edit' => array(
+                        'title' => 'Edit',
+                        'groups' => array(
+
+                        ),
+                    ),
+                ),
                 'filter' => array(
                     'title' => 'Search listings',
                     'fields' => array(
@@ -2945,25 +2994,6 @@ class appDevDebugProjectContainer extends Container
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
-                ),
-                'form' => array(
-                    'template' => 'LyraAdminBundle:Admin:form.html.twig',
-                    'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
-                    'groups' => array(
-
-                    ),
-                    'new' => array(
-                        'title' => 'New',
-                        'groups' => array(
-
-                        ),
-                    ),
-                    'edit' => array(
-                        'title' => 'Edit',
-                        'groups' => array(
-
-                        ),
-                    ),
                 ),
                 'services' => array(
                     'model_manager' => 'lyra_admin.default.model_manager',
@@ -3253,6 +3283,40 @@ class appDevDebugProjectContainer extends Container
                         ),
                     ),
                 ),
+                'form' => array(
+                    'groups' => array(
+                        'listing' => array(
+                            'caption' => 'Listing',
+                            'break_after' => true,
+                            'fields' => array(
+                                0 => 'ad_title',
+                                1 => 'ad_text',
+                            ),
+                        ),
+                        'status' => array(
+                            'caption' => 'Status',
+                            'fields' => array(
+                                0 => 'published',
+                                1 => 'expires_at',
+                            ),
+                            'break_after' => false,
+                        ),
+                    ),
+                    'template' => 'LyraAdminBundle:Admin:form.html.twig',
+                    'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
+                    'new' => array(
+                        'title' => 'New',
+                        'groups' => array(
+
+                        ),
+                    ),
+                    'edit' => array(
+                        'title' => 'Edit',
+                        'groups' => array(
+
+                        ),
+                    ),
+                ),
                 'filter' => array(
                     'title' => 'Search listings',
                     'fields' => array(
@@ -3271,25 +3335,6 @@ class appDevDebugProjectContainer extends Container
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
-                ),
-                'form' => array(
-                    'template' => 'LyraAdminBundle:Admin:form.html.twig',
-                    'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
-                    'groups' => array(
-
-                    ),
-                    'new' => array(
-                        'title' => 'New',
-                        'groups' => array(
-
-                        ),
-                    ),
-                    'edit' => array(
-                        'title' => 'Edit',
-                        'groups' => array(
-
-                        ),
-                    ),
                 ),
                 'services' => array(
                     'model_manager' => 'lyra_admin.default.model_manager',

@@ -63,6 +63,17 @@ lyra_admin:
     models:
         listing:
             class: 'Acme\ClassifiedsBundle\Entity\Listing'
+            form:
+              groups:
+                listing:
+                    # panel title
+                    caption: Listing
+                    fields: [ad_title,ad_text]
+                    # column break after this panel
+                    break_after: true
+                status:
+                    caption: Status
+                    fields: [published,expires_at]
             filter:
             # search dialog title
               title: Search listings

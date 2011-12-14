@@ -438,6 +438,36 @@
               <parameter>new</parameter>
             </parameter>
           </parameter>
+          <parameter key="form" type="collection">
+            <parameter key="groups" type="collection">
+              <parameter key="listing" type="collection">
+                <parameter key="caption">Listing</parameter>
+                <parameter key="break_after">true</parameter>
+                <parameter key="fields" type="collection">
+                  <parameter>ad_title</parameter>
+                  <parameter>ad_text</parameter>
+                </parameter>
+              </parameter>
+              <parameter key="status" type="collection">
+                <parameter key="caption">Status</parameter>
+                <parameter key="fields" type="collection">
+                  <parameter>published</parameter>
+                  <parameter>expires_at</parameter>
+                </parameter>
+                <parameter key="break_after">false</parameter>
+              </parameter>
+            </parameter>
+            <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
+            <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
+            <parameter key="new" type="collection">
+              <parameter key="title">New</parameter>
+              <parameter key="groups" type="collection"/>
+            </parameter>
+            <parameter key="edit" type="collection">
+              <parameter key="title">Edit</parameter>
+              <parameter key="groups" type="collection"/>
+            </parameter>
+          </parameter>
           <parameter key="filter" type="collection">
             <parameter key="title">Search listings</parameter>
             <parameter key="fields" type="collection">
@@ -449,19 +479,6 @@
           <parameter key="controller">LyraAdminBundle:Admin</parameter>
           <parameter key="trans_domain">LyraAdminBundle</parameter>
           <parameter key="fields" type="collection"/>
-          <parameter key="form" type="collection">
-            <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
-            <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
-            <parameter key="groups" type="collection"/>
-            <parameter key="new" type="collection">
-              <parameter key="title">New</parameter>
-              <parameter key="groups" type="collection"/>
-            </parameter>
-            <parameter key="edit" type="collection">
-              <parameter key="title">Edit</parameter>
-              <parameter key="groups" type="collection"/>
-            </parameter>
-          </parameter>
           <parameter key="services" type="collection">
             <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
           </parameter>
@@ -627,6 +644,36 @@
           <parameter>new</parameter>
         </parameter>
       </parameter>
+      <parameter key="form" type="collection">
+        <parameter key="groups" type="collection">
+          <parameter key="listing" type="collection">
+            <parameter key="caption">Listing</parameter>
+            <parameter key="break_after">true</parameter>
+            <parameter key="fields" type="collection">
+              <parameter>ad_title</parameter>
+              <parameter>ad_text</parameter>
+            </parameter>
+          </parameter>
+          <parameter key="status" type="collection">
+            <parameter key="caption">Status</parameter>
+            <parameter key="fields" type="collection">
+              <parameter>published</parameter>
+              <parameter>expires_at</parameter>
+            </parameter>
+            <parameter key="break_after">false</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
+        <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
+        <parameter key="new" type="collection">
+          <parameter key="title">New</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="title">Edit</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+      </parameter>
       <parameter key="filter" type="collection">
         <parameter key="title">Search listings</parameter>
         <parameter key="fields" type="collection">
@@ -638,19 +685,6 @@
       <parameter key="controller">LyraAdminBundle:Admin</parameter>
       <parameter key="trans_domain">LyraAdminBundle</parameter>
       <parameter key="fields" type="collection"/>
-      <parameter key="form" type="collection">
-        <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
-        <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
-        <parameter key="groups" type="collection"/>
-        <parameter key="new" type="collection">
-          <parameter key="title">New</parameter>
-          <parameter key="groups" type="collection"/>
-        </parameter>
-        <parameter key="edit" type="collection">
-          <parameter key="title">Edit</parameter>
-          <parameter key="groups" type="collection"/>
-        </parameter>
-      </parameter>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
@@ -899,6 +933,36 @@
           </parameter>
         </parameter>
       </parameter>
+      <parameter key="form" type="collection">
+        <parameter key="groups" type="collection">
+          <parameter key="listing" type="collection">
+            <parameter key="caption">Listing</parameter>
+            <parameter key="break_after">true</parameter>
+            <parameter key="fields" type="collection">
+              <parameter>ad_title</parameter>
+              <parameter>ad_text</parameter>
+            </parameter>
+          </parameter>
+          <parameter key="status" type="collection">
+            <parameter key="caption">Status</parameter>
+            <parameter key="fields" type="collection">
+              <parameter>published</parameter>
+              <parameter>expires_at</parameter>
+            </parameter>
+            <parameter key="break_after">false</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
+        <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
+        <parameter key="new" type="collection">
+          <parameter key="title">New</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="title">Edit</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+      </parameter>
       <parameter key="filter" type="collection">
         <parameter key="title">Search listings</parameter>
         <parameter key="fields" type="collection">
@@ -910,19 +974,6 @@
       <parameter key="controller">LyraAdminBundle:Admin</parameter>
       <parameter key="trans_domain">LyraAdminBundle</parameter>
       <parameter key="fields" type="collection"/>
-      <parameter key="form" type="collection">
-        <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
-        <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
-        <parameter key="groups" type="collection"/>
-        <parameter key="new" type="collection">
-          <parameter key="title">New</parameter>
-          <parameter key="groups" type="collection"/>
-        </parameter>
-        <parameter key="edit" type="collection">
-          <parameter key="title">Edit</parameter>
-          <parameter key="groups" type="collection"/>
-        </parameter>
-      </parameter>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
