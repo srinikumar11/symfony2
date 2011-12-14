@@ -1,0 +1,18 @@
+Srini\BlogBundle\Entity\Post:
+  type: entity
+  table: null
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    title:
+      type: string
+      length: 255
+    body:
+      type: string
+      length: '1000'
+    date_added:
+      type: datetime
+  lifecycleCallbacks: {  }

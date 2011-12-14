@@ -1,0 +1,7 @@
+parameters:
+#    srini_blog.example.class: Srini\BlogBundle\Example
+
+services:
+#    srini_blog.example:
+#        class: %srini_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

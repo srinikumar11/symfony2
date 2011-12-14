@@ -1,0 +1,7 @@
+SriniBlogBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: SriniBlogBundle:Default:index }
+
+SriniBlogBundle_post:
+    resource: "@SriniBlogBundle/Resources/config/routing/post.yml"
+    prefix:   /post
