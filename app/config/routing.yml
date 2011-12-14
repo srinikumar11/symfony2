@@ -1,7 +1,12 @@
+AcmeClassifiedsBundle:
+    resource: "@AcmeClassifiedsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 SriniBlogBundle:
     resource: "@SriniBlogBundle/Resources/config/routing.yml"
     prefix:   /
-
+LyraAdminBundle:
+    resource: "@LyraAdminBundle/Resources/config/routing.yml"
 # Internal routing configuration to handle ESI
 #_internal:
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

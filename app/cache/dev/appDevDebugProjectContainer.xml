@@ -18,6 +18,8 @@
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="JMSSecurityExtraBundle">JMS\SecurityExtraBundle\JMSSecurityExtraBundle</parameter>
       <parameter key="SriniBlogBundle">Srini\BlogBundle\SriniBlogBundle</parameter>
+      <parameter key="LyraAdminBundle">Lyra\AdminBundle\LyraAdminBundle</parameter>
+      <parameter key="AcmeClassifiedsBundle">Acme\ClassifiedsBundle\AcmeClassifiedsBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -230,7 +232,7 @@
     <parameter key="twig.exception_listener.class">Symfony\Component\HttpKernel\EventListener\ExceptionListener</parameter>
     <parameter key="twig.exception_listener.controller">Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
-      <parameter>form_div_layout.html.twig</parameter>
+      <parameter>LyraAdminBundle:Admin:fields.html.twig</parameter>
     </parameter>
     <parameter key="twig.options" type="collection">
       <parameter key="debug">true</parameter>
@@ -366,6 +368,676 @@
     <parameter key="security.extra.controller_listener.class">JMS\SecurityExtraBundle\Controller\ControllerListener</parameter>
     <parameter key="security.access.iddqd_voter.class">JMS\SecurityExtraBundle\Security\Authorization\Voter\IddqdVoter</parameter>
     <parameter key="security.extra.secure_all_services">false</parameter>
+    <parameter key="lyra_admin.form_factory.class">Lyra\AdminBundle\FormFactory\AdminFormFactory</parameter>
+    <parameter key="lyra_admin.renderer_factory.class">Lyra\AdminBundle\Renderer\RendererFactory</parameter>
+    <parameter key="lyra_admin.list_renderer.class">Lyra\AdminBundle\Renderer\ListRenderer</parameter>
+    <parameter key="lyra_admin.form_renderer.class">Lyra\AdminBundle\Renderer\FormRenderer</parameter>
+    <parameter key="lyra_admin.model_manager_factory.class">Lyra\AdminBundle\Model\ModelManagerFactory</parameter>
+    <parameter key="lyra_admin.dialog_renderer.class">Lyra\AdminBundle\Renderer\DialogRenderer</parameter>
+    <parameter key="lyra_admin.filter_renderer.class">Lyra\AdminBundle\Renderer\FilterRenderer</parameter>
+    <parameter key="lyra_admin.options" type="collection">
+      <parameter key="models" type="collection">
+        <parameter key="listing" type="collection">
+          <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+          <parameter key="actions" type="collection">
+            <parameter key="new" type="collection">
+              <parameter key="text">New listing</parameter>
+              <parameter key="icon">circle-plus</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+          </parameter>
+          <parameter key="list" type="collection">
+            <parameter key="title">Listings</parameter>
+            <parameter key="columns" type="collection">
+              <parameter key="ad_title" type="collection">
+                <parameter key="type">null</parameter>
+                <parameter key="sortable">true</parameter>
+                <parameter key="format">null</parameter>
+                <parameter key="format_function">null</parameter>
+                <parameter key="boolean_actions" type="collection">
+                  <parameter>_boolean_on</parameter>
+                  <parameter>_boolean_off</parameter>
+                </parameter>
+              </parameter>
+              <parameter key="published" type="collection">
+                <parameter key="type">null</parameter>
+                <parameter key="sortable">true</parameter>
+                <parameter key="format">null</parameter>
+                <parameter key="format_function">null</parameter>
+                <parameter key="boolean_actions" type="collection">
+                  <parameter>_boolean_on</parameter>
+                  <parameter>_boolean_off</parameter>
+                </parameter>
+              </parameter>
+              <parameter key="posted_at" type="collection">
+                <parameter key="type">null</parameter>
+                <parameter key="sortable">true</parameter>
+                <parameter key="format">null</parameter>
+                <parameter key="format_function">null</parameter>
+                <parameter key="boolean_actions" type="collection">
+                  <parameter>_boolean_on</parameter>
+                  <parameter>_boolean_off</parameter>
+                </parameter>
+              </parameter>
+            </parameter>
+            <parameter key="template">LyraAdminBundle:Admin:index.html.twig</parameter>
+            <parameter key="max_page_rows">20</parameter>
+            <parameter key="auto_labels">true</parameter>
+            <parameter key="default_sort" type="collection">
+              <parameter key="field">null</parameter>
+              <parameter key="order">asc</parameter>
+            </parameter>
+            <parameter key="object_actions" type="collection">
+              <parameter>edit</parameter>
+              <parameter>delete</parameter>
+            </parameter>
+            <parameter key="batch_actions" type="collection">
+              <parameter>delete</parameter>
+            </parameter>
+            <parameter key="list_actions" type="collection">
+              <parameter>new</parameter>
+            </parameter>
+          </parameter>
+          <parameter key="filter" type="collection">
+            <parameter key="title">Search listings</parameter>
+            <parameter key="fields" type="collection">
+              <parameter key="ad_title" type="collection"/>
+              <parameter key="posted_at" type="collection"/>
+              <parameter key="published" type="collection"/>
+            </parameter>
+          </parameter>
+          <parameter key="controller">LyraAdminBundle:Admin</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="fields" type="collection"/>
+          <parameter key="form" type="collection">
+            <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
+            <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
+            <parameter key="groups" type="collection"/>
+            <parameter key="new" type="collection">
+              <parameter key="title">New</parameter>
+              <parameter key="groups" type="collection"/>
+            </parameter>
+            <parameter key="edit" type="collection">
+              <parameter key="title">Edit</parameter>
+              <parameter key="groups" type="collection"/>
+            </parameter>
+          </parameter>
+          <parameter key="services" type="collection">
+            <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="db_driver">orm</parameter>
+      <parameter key="route_pattern_prefix">admin</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+      <parameter key="actions" type="collection">
+        <parameter key="index" type="collection">
+          <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="page">null</parameter>
+            <parameter key="field">null</parameter>
+            <parameter key="order">null</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="new" type="collection">
+          <parameter key="route_pattern">new</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">document</parameter>
+          <parameter key="text">list.action.new</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="route_pattern">{id}/edit</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">pencil</parameter>
+          <parameter key="text">list.action.edit</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="delete" type="collection">
+          <parameter key="route_pattern">{id}/delete</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">trash</parameter>
+          <parameter key="text">list.action.delete</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">dialog.title.delete</parameter>
+            <parameter key="message">dialog.message.delete</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="object" type="collection">
+          <parameter key="route_pattern">object</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="filter" type="collection">
+          <parameter key="route_pattern">filter/{reset}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="reset">null</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+    </parameter>
+    <parameter key="lyra_admin.listing.options" type="collection">
+      <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+      <parameter key="actions" type="collection">
+        <parameter key="new" type="collection">
+          <parameter key="route_pattern">new</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">circle-plus</parameter>
+          <parameter key="text">New listing</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="index" type="collection">
+          <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="page">null</parameter>
+            <parameter key="field">null</parameter>
+            <parameter key="order">null</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="route_pattern">{id}/edit</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">pencil</parameter>
+          <parameter key="text">list.action.edit</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="delete" type="collection">
+          <parameter key="route_pattern">{id}/delete</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">trash</parameter>
+          <parameter key="text">list.action.delete</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">dialog.title.delete</parameter>
+            <parameter key="message">dialog.message.delete</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="object" type="collection">
+          <parameter key="route_pattern">object</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="filter" type="collection">
+          <parameter key="route_pattern">filter/{reset}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="reset">null</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="list" type="collection">
+        <parameter key="title">Listings</parameter>
+        <parameter key="columns" type="collection">
+          <parameter key="ad_title" type="collection">
+            <parameter key="type">null</parameter>
+            <parameter key="sortable">true</parameter>
+            <parameter key="format">null</parameter>
+            <parameter key="format_function">null</parameter>
+            <parameter key="boolean_actions" type="collection">
+              <parameter>_boolean_on</parameter>
+              <parameter>_boolean_off</parameter>
+            </parameter>
+            <parameter key="sorted">false</parameter>
+            <parameter key="name">ad_title</parameter>
+            <parameter key="label">Ad title</parameter>
+            <parameter key="property_name">ad_title</parameter>
+          </parameter>
+          <parameter key="published" type="collection">
+            <parameter key="type">null</parameter>
+            <parameter key="sortable">true</parameter>
+            <parameter key="format">null</parameter>
+            <parameter key="format_function">null</parameter>
+            <parameter key="boolean_actions" type="collection">
+              <parameter>_boolean_on</parameter>
+              <parameter>_boolean_off</parameter>
+            </parameter>
+            <parameter key="sorted">false</parameter>
+            <parameter key="name">published</parameter>
+            <parameter key="label">Published</parameter>
+            <parameter key="property_name">published</parameter>
+          </parameter>
+          <parameter key="posted_at" type="collection">
+            <parameter key="type">null</parameter>
+            <parameter key="sortable">true</parameter>
+            <parameter key="format">null</parameter>
+            <parameter key="format_function">null</parameter>
+            <parameter key="boolean_actions" type="collection">
+              <parameter>_boolean_on</parameter>
+              <parameter>_boolean_off</parameter>
+            </parameter>
+            <parameter key="sorted">false</parameter>
+            <parameter key="name">posted_at</parameter>
+            <parameter key="label">Posted at</parameter>
+            <parameter key="property_name">posted_at</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="template">LyraAdminBundle:Admin:index.html.twig</parameter>
+        <parameter key="max_page_rows">20</parameter>
+        <parameter key="auto_labels">true</parameter>
+        <parameter key="default_sort" type="collection">
+          <parameter key="field">null</parameter>
+          <parameter key="order">asc</parameter>
+        </parameter>
+        <parameter key="object_actions" type="collection">
+          <parameter>edit</parameter>
+          <parameter>delete</parameter>
+        </parameter>
+        <parameter key="batch_actions" type="collection">
+          <parameter>delete</parameter>
+        </parameter>
+        <parameter key="list_actions" type="collection">
+          <parameter>new</parameter>
+        </parameter>
+      </parameter>
+      <parameter key="filter" type="collection">
+        <parameter key="title">Search listings</parameter>
+        <parameter key="fields" type="collection">
+          <parameter key="ad_title" type="collection"/>
+          <parameter key="posted_at" type="collection"/>
+          <parameter key="published" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
+      <parameter key="form" type="collection">
+        <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
+        <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
+        <parameter key="groups" type="collection"/>
+        <parameter key="new" type="collection">
+          <parameter key="title">New</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="title">Edit</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="services" type="collection">
+        <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
+      </parameter>
+      <parameter key="route_prefix">lyra_admin_listing</parameter>
+      <parameter key="route_pattern_prefix">listing</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+    </parameter>
+    <parameter key="lyra_admin.listing.actions.options" type="collection">
+      <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+      <parameter key="actions" type="collection">
+        <parameter key="new" type="collection">
+          <parameter key="route_pattern">new</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">circle-plus</parameter>
+          <parameter key="text">New listing</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="index" type="collection">
+          <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="page">null</parameter>
+            <parameter key="field">null</parameter>
+            <parameter key="order">null</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="route_pattern">{id}/edit</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">pencil</parameter>
+          <parameter key="text">list.action.edit</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="delete" type="collection">
+          <parameter key="route_pattern">{id}/delete</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">trash</parameter>
+          <parameter key="text">list.action.delete</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">dialog.title.delete</parameter>
+            <parameter key="message">dialog.message.delete</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="object" type="collection">
+          <parameter key="route_pattern">object</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="filter" type="collection">
+          <parameter key="route_pattern">filter/{reset}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="reset">null</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="filter" type="collection">
+        <parameter key="title">Search listings</parameter>
+        <parameter key="fields" type="collection">
+          <parameter key="ad_title" type="collection"/>
+          <parameter key="posted_at" type="collection"/>
+          <parameter key="published" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
+      <parameter key="services" type="collection">
+        <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
+      </parameter>
+      <parameter key="route_prefix">lyra_admin_listing</parameter>
+      <parameter key="route_pattern_prefix">listing</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+    </parameter>
+    <parameter key="lyra_admin.listing.list.options" type="collection">
+      <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+      <parameter key="actions" type="collection">
+        <parameter key="new" type="collection">
+          <parameter key="route_pattern">new</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">circle-plus</parameter>
+          <parameter key="text">New listing</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="index" type="collection">
+          <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="page">null</parameter>
+            <parameter key="field">null</parameter>
+            <parameter key="order">null</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="route_pattern">{id}/edit</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">pencil</parameter>
+          <parameter key="text">list.action.edit</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="delete" type="collection">
+          <parameter key="route_pattern">{id}/delete</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">trash</parameter>
+          <parameter key="text">list.action.delete</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">dialog.title.delete</parameter>
+            <parameter key="message">dialog.message.delete</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="object" type="collection">
+          <parameter key="route_pattern">object</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="filter" type="collection">
+          <parameter key="route_pattern">filter/{reset}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="reset">null</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="list" type="collection">
+        <parameter key="title">Listings</parameter>
+        <parameter key="columns" type="collection">
+          <parameter key="ad_title" type="collection">
+            <parameter key="type">null</parameter>
+            <parameter key="sortable">true</parameter>
+            <parameter key="format">null</parameter>
+            <parameter key="format_function">null</parameter>
+            <parameter key="boolean_actions" type="collection">
+              <parameter>_boolean_on</parameter>
+              <parameter>_boolean_off</parameter>
+            </parameter>
+            <parameter key="sorted">false</parameter>
+            <parameter key="name">ad_title</parameter>
+            <parameter key="label">Ad title</parameter>
+            <parameter key="property_name">ad_title</parameter>
+          </parameter>
+          <parameter key="published" type="collection">
+            <parameter key="type">null</parameter>
+            <parameter key="sortable">true</parameter>
+            <parameter key="format">null</parameter>
+            <parameter key="format_function">null</parameter>
+            <parameter key="boolean_actions" type="collection">
+              <parameter>_boolean_on</parameter>
+              <parameter>_boolean_off</parameter>
+            </parameter>
+            <parameter key="sorted">false</parameter>
+            <parameter key="name">published</parameter>
+            <parameter key="label">Published</parameter>
+            <parameter key="property_name">published</parameter>
+          </parameter>
+          <parameter key="posted_at" type="collection">
+            <parameter key="type">null</parameter>
+            <parameter key="sortable">true</parameter>
+            <parameter key="format">null</parameter>
+            <parameter key="format_function">null</parameter>
+            <parameter key="boolean_actions" type="collection">
+              <parameter>_boolean_on</parameter>
+              <parameter>_boolean_off</parameter>
+            </parameter>
+            <parameter key="sorted">false</parameter>
+            <parameter key="name">posted_at</parameter>
+            <parameter key="label">Posted at</parameter>
+            <parameter key="property_name">posted_at</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="template">LyraAdminBundle:Admin:index.html.twig</parameter>
+        <parameter key="max_page_rows">20</parameter>
+        <parameter key="auto_labels">true</parameter>
+        <parameter key="default_sort" type="collection">
+          <parameter key="field">null</parameter>
+          <parameter key="order">asc</parameter>
+        </parameter>
+        <parameter key="object_actions" type="collection">
+          <parameter>edit</parameter>
+          <parameter>delete</parameter>
+        </parameter>
+        <parameter key="batch_actions" type="collection">
+          <parameter>delete</parameter>
+        </parameter>
+        <parameter key="list_actions" type="collection">
+          <parameter>new</parameter>
+        </parameter>
+      </parameter>
+      <parameter key="filter" type="collection">
+        <parameter key="title">Search listings</parameter>
+        <parameter key="fields" type="collection">
+          <parameter key="ad_title" type="collection"/>
+          <parameter key="posted_at" type="collection"/>
+          <parameter key="published" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
+      <parameter key="services" type="collection">
+        <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
+      </parameter>
+      <parameter key="route_prefix">lyra_admin_listing</parameter>
+      <parameter key="route_pattern_prefix">listing</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+    </parameter>
+    <parameter key="lyra_admin.listing.form.options" type="collection">
+      <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+      <parameter key="actions" type="collection">
+        <parameter key="new" type="collection">
+          <parameter key="route_pattern">new</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">circle-plus</parameter>
+          <parameter key="text">New listing</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="index" type="collection">
+          <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="page">null</parameter>
+            <parameter key="field">null</parameter>
+            <parameter key="order">null</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="route_pattern">{id}/edit</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">pencil</parameter>
+          <parameter key="text">list.action.edit</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="delete" type="collection">
+          <parameter key="route_pattern">{id}/delete</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">trash</parameter>
+          <parameter key="text">list.action.delete</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">dialog.title.delete</parameter>
+            <parameter key="message">dialog.message.delete</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="object" type="collection">
+          <parameter key="route_pattern">object</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="filter" type="collection">
+          <parameter key="route_pattern">filter/{reset}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="reset">null</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="filter" type="collection">
+        <parameter key="title">Search listings</parameter>
+        <parameter key="fields" type="collection">
+          <parameter key="ad_title" type="collection"/>
+          <parameter key="posted_at" type="collection"/>
+          <parameter key="published" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
+      <parameter key="form" type="collection">
+        <parameter key="template">LyraAdminBundle:Admin:form.html.twig</parameter>
+        <parameter key="class">Lyra\AdminBundle\Form\AdminFormType</parameter>
+        <parameter key="groups" type="collection"/>
+        <parameter key="new" type="collection">
+          <parameter key="title">New</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="title">Edit</parameter>
+          <parameter key="groups" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="services" type="collection">
+        <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
+      </parameter>
+      <parameter key="route_prefix">lyra_admin_listing</parameter>
+      <parameter key="route_pattern_prefix">listing</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+    </parameter>
+    <parameter key="lyra_admin.listing.filter.options" type="collection">
+      <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+      <parameter key="actions" type="collection">
+        <parameter key="new" type="collection">
+          <parameter key="route_pattern">new</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">circle-plus</parameter>
+          <parameter key="text">New listing</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="index" type="collection">
+          <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="page">null</parameter>
+            <parameter key="field">null</parameter>
+            <parameter key="order">null</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="edit" type="collection">
+          <parameter key="route_pattern">{id}/edit</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">pencil</parameter>
+          <parameter key="text">list.action.edit</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="delete" type="collection">
+          <parameter key="route_pattern">{id}/delete</parameter>
+          <parameter key="route_defaults" type="collection"/>
+          <parameter key="icon">trash</parameter>
+          <parameter key="text">list.action.delete</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">dialog.title.delete</parameter>
+            <parameter key="message">dialog.message.delete</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="object" type="collection">
+          <parameter key="route_pattern">object</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="filter" type="collection">
+          <parameter key="route_pattern">filter/{reset}</parameter>
+          <parameter key="route_defaults" type="collection">
+            <parameter key="reset">null</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="filter" type="collection">
+        <parameter key="title">Search listings</parameter>
+        <parameter key="fields" type="collection">
+          <parameter key="ad_title" type="collection"/>
+          <parameter key="posted_at" type="collection"/>
+          <parameter key="published" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
+      <parameter key="services" type="collection">
+        <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
+      </parameter>
+      <parameter key="route_prefix">lyra_admin_listing</parameter>
+      <parameter key="route_pattern_prefix">listing</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+    </parameter>
+    <parameter key="lyra_admin.listing.class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
+    <parameter key="lyra_admin.routes" type="collection">
+      <parameter key="route_pattern_prefix">admin</parameter>
+      <parameter key="models" type="collection">
+        <parameter key="listing" type="collection">
+          <parameter key="controller">LyraAdminBundle:Admin</parameter>
+          <parameter key="route_pattern_prefix">listing</parameter>
+          <parameter key="route_prefix">lyra_admin_listing</parameter>
+          <parameter key="actions" type="collection">
+            <parameter key="new" type="collection">
+              <parameter key="route_pattern">new</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="index" type="collection">
+              <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
+              <parameter key="route_defaults" type="collection">
+                <parameter key="page">null</parameter>
+                <parameter key="field">null</parameter>
+                <parameter key="order">null</parameter>
+              </parameter>
+            </parameter>
+            <parameter key="edit" type="collection">
+              <parameter key="route_pattern">{id}/edit</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="delete" type="collection">
+              <parameter key="route_pattern">{id}/delete</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="object" type="collection">
+              <parameter key="route_pattern">object</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="filter" type="collection">
+              <parameter key="route_pattern">filter/{reset}</parameter>
+              <parameter key="route_defaults" type="collection">
+                <parameter key="reset">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+    </parameter>
     <parameter key="web_profiler.debug_toolbar.class">Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
@@ -743,6 +1415,7 @@
               <argument key="url">form.type.url</argument>
               <argument key="csrf">form.type.csrf</argument>
               <argument key="entity">form.type.entity</argument>
+              <argument key="daterange">form.type.date_range</argument>
             </argument>
             <argument type="collection">
               <argument key="field" type="collection">
@@ -1082,6 +1755,9 @@
                 <argument type="service" id="annotation_reader"/>
               </service>
             </argument>
+          </call>
+          <call method="addLoader">
+            <argument type="service" id="lyra_admin.routing_loader"/>
           </call>
         </service>
       </argument>
@@ -1482,7 +2158,7 @@
           <service class="Symfony\Bridge\Twig\Extension\FormExtension" public="false">
             <tag name="twig.extension"/>
             <argument type="collection">
-              <argument>form_div_layout.html.twig</argument>
+              <argument>LyraAdminBundle:Admin:fields.html.twig</argument>
             </argument>
           </service>
         </argument>
@@ -1600,6 +2276,7 @@
           <call method="setEntityNamespaces">
             <argument type="collection">
               <argument key="SriniBlogBundle">Srini\BlogBundle\Entity</argument>
+              <argument key="AcmeClassifiedsBundle">Acme\ClassifiedsBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -1649,6 +2326,21 @@
                     </service>
                   </argument>
                   <argument>Srini\BlogBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service">
+                        <service class="Symfony\Bridge\Doctrine\Annotations\IndexedReader" public="false">
+                          <argument type="service" id="annotation_reader"/>
+                        </service>
+                      </argument>
+                      <argument type="collection">
+                        <argument>/Users/srinivasan/projects/symfony2/src/Acme/ClassifiedsBundle/Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Acme\ClassifiedsBundle\Entity</argument>
                 </call>
               </service>
             </argument>
@@ -1975,6 +2667,60 @@
               <argument type="service">
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
+                  <argument>LyraAdminBundle</argument>
+                  <argument>/Users/srinivasan/projects/symfony2/app/Resources/LyraAdminBundle/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>LyraAdminBundle</argument>
+                  <argument>/Users/srinivasan/projects/symfony2/vendor/bundles/Lyra/AdminBundle/Resources/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>AcmeClassifiedsBundle</argument>
+                  <argument>/Users/srinivasan/projects/symfony2/app/Resources/AcmeClassifiedsBundle/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>AcmeClassifiedsBundle</argument>
+                  <argument>/Users/srinivasan/projects/symfony2/src/Acme/ClassifiedsBundle/Resources/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
                   <argument>AcmeDemoBundle</argument>
                   <argument>/Users/srinivasan/projects/symfony2/app/Resources/AcmeDemoBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
@@ -2171,6 +2917,75 @@
       <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" priority="-255"/>
       <argument type="service" id="service_container"/>
       <argument type="service" id="annotation_reader"/>
+    </service>
+    <service id="lyra_admin.default.model_manager" class="Lyra\AdminBundle\Model\ORM\ModelManager">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="lyra_admin.form_factory" class="Lyra\AdminBundle\FormFactory\AdminFormFactory">
+      <argument type="service" id="form.factory"/>
+    </service>
+    <service id="lyra_admin.renderer_factory" class="Lyra\AdminBundle\Renderer\RendererFactory">
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="lyra_admin.model_manager_factory" class="Lyra\AdminBundle\Model\ModelManagerFactory">
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="lyra_admin.list_renderer" class="Lyra\AdminBundle\Renderer\ListRenderer"/>
+    <service id="lyra_admin.form_renderer" class="Lyra\AdminBundle\Renderer\FormRenderer">
+      <argument type="service" id="lyra_admin.form_factory"/>
+    </service>
+    <service id="lyra_admin.dialog_renderer" class="Lyra\AdminBundle\Renderer\DialogRenderer"/>
+    <service id="lyra_admin.filter_renderer" class="Lyra\AdminBundle\Renderer\FilterRenderer">
+      <argument type="service" id="lyra_admin.form_factory"/>
+    </service>
+    <service id="lyra_admin.routing_loader" class="Lyra\AdminBundle\Routing\RouteLoader">
+      <tag name="routing.loader"/>
+      <argument type="collection">
+        <argument key="route_pattern_prefix">admin</argument>
+        <argument key="models" type="collection">
+          <argument key="listing" type="collection">
+            <argument key="controller">LyraAdminBundle:Admin</argument>
+            <argument key="route_pattern_prefix">listing</argument>
+            <argument key="route_prefix">lyra_admin_listing</argument>
+            <argument key="actions" type="collection">
+              <argument key="new" type="collection">
+                <argument key="route_pattern">new</argument>
+                <argument key="route_defaults" type="collection"/>
+              </argument>
+              <argument key="index" type="collection">
+                <argument key="route_pattern">list/{page}/{field}/{order}</argument>
+                <argument key="route_defaults" type="collection">
+                  <argument key="page">null</argument>
+                  <argument key="field">null</argument>
+                  <argument key="order">null</argument>
+                </argument>
+              </argument>
+              <argument key="edit" type="collection">
+                <argument key="route_pattern">{id}/edit</argument>
+                <argument key="route_defaults" type="collection"/>
+              </argument>
+              <argument key="delete" type="collection">
+                <argument key="route_pattern">{id}/delete</argument>
+                <argument key="route_defaults" type="collection"/>
+              </argument>
+              <argument key="object" type="collection">
+                <argument key="route_pattern">object</argument>
+                <argument key="route_defaults" type="collection"/>
+              </argument>
+              <argument key="filter" type="collection">
+                <argument key="route_pattern">filter/{reset}</argument>
+                <argument key="route_defaults" type="collection">
+                  <argument key="reset">null</argument>
+                </argument>
+              </argument>
+            </argument>
+          </argument>
+        </argument>
+      </argument>
+      <argument>/Users/srinivasan/projects/symfony2/app/cache/dev</argument>
+    </service>
+    <service id="form.type.date_range" class="Lyra\AdminBundle\Form\DateRangeType">
+      <tag name="form.type" alias="daterange"/>
     </service>
     <service id="twig.extension.acme.demo" class="Acme\DemoBundle\Twig\Extension\DemoExtension" public="false">
       <tag name="twig.extension"/>
@@ -2389,5 +3204,6 @@
     <service id="debug.event_dispatcher" alias="event_dispatcher"/>
     <service id="database_connection" alias="doctrine.dbal.default_connection"/>
     <service id="doctrine.orm.entity_manager" alias="doctrine.orm.default_entity_manager"/>
+    <service id="lyra_admin.listing.model_manager" alias="lyra_admin.default.model_manager"/>
   </services>
 </container>

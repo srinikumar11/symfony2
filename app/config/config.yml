@@ -58,3 +58,25 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+lyra_admin:
+    models:
+        listing:
+            class: 'Acme\ClassifiedsBundle\Entity\Listing'
+            filter:
+            # search dialog title
+              title: Search listings
+              fields:
+                ad_title: ~
+                posted_at: ~
+                published: ~
+            actions:
+              new:
+                text: 'New listing'
+                icon: circle-plus    
+            list:
+                title: Listings
+                columns:
+                    ad_title: ~
+                    published: ~
+                    posted_at: ~

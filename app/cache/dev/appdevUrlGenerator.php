@@ -33,6 +33,7 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        '_configurator_home' => true,
        '_configurator_step' => true,
        '_configurator_final' => true,
+       'AcmeClassifiedsBundle_homepage' => true,
        'SriniBlogBundle_homepage' => true,
        'post' => true,
        'post_show' => true,
@@ -41,6 +42,12 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        'post_edit' => true,
        'post_update' => true,
        'post_delete' => true,
+       'lyra_admin_listing_index' => true,
+       'lyra_admin_listing_new' => true,
+       'lyra_admin_listing_edit' => true,
+       'lyra_admin_listing_delete' => true,
+       'lyra_admin_listing_object' => true,
+       'lyra_admin_listing_filter' => true,
     );
 
     /**
@@ -164,6 +171,11 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         return array(array (), array (  '_controller' => 'Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController::finalAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/_configurator/final',  ),));
     }
 
+    private function getAcmeClassifiedsBundle_homepageRouteInfo()
+    {
+        return array(array (  0 => 'name',), array (  '_controller' => 'Acme\\ClassifiedsBundle\\Controller\\DefaultController::indexAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'name',  ),  1 =>   array (    0 => 'text',    1 => '/hello',  ),));
+    }
+
     private function getSriniBlogBundle_homepageRouteInfo()
     {
         return array(array (  0 => 'name',), array (  '_controller' => 'Srini\\BlogBundle\\Controller\\DefaultController::indexAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'name',  ),  1 =>   array (    0 => 'text',    1 => '/hello',  ),));
@@ -202,5 +214,35 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
     private function getpost_deleteRouteInfo()
     {
         return array(array (  0 => 'id',), array (  '_controller' => 'Srini\\BlogBundle\\Controller\\PostController::deleteAction',), array (  '_method' => 'post',), array (  0 =>   array (    0 => 'text',    1 => '/delete',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/post',  ),));
+    }
+
+    private function getlyra_admin_listing_indexRouteInfo()
+    {
+        return array(array (  0 => 'page',  1 => 'field',  2 => 'order',), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::indexAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'index',  'page' => NULL,  'field' => NULL,  'order' => NULL,), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'order',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'field',  ),  2 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'page',  ),  3 =>   array (    0 => 'text',    1 => '/admin/listing/list',  ),));
+    }
+
+    private function getlyra_admin_listing_newRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::newAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'new',), array (), array (  0 =>   array (    0 => 'text',    1 => '/admin/listing/new',  ),));
+    }
+
+    private function getlyra_admin_listing_editRouteInfo()
+    {
+        return array(array (  0 => 'id',), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::editAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'edit',), array (), array (  0 =>   array (    0 => 'text',    1 => '/edit',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/admin/listing',  ),));
+    }
+
+    private function getlyra_admin_listing_deleteRouteInfo()
+    {
+        return array(array (  0 => 'id',), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::deleteAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'delete',), array (), array (  0 =>   array (    0 => 'text',    1 => '/delete',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/admin/listing',  ),));
+    }
+
+    private function getlyra_admin_listing_objectRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::objectAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'object',), array (), array (  0 =>   array (    0 => 'text',    1 => '/admin/listing/object',  ),));
+    }
+
+    private function getlyra_admin_listing_filterRouteInfo()
+    {
+        return array(array (  0 => 'reset',), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::filterAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'filter',  'reset' => NULL,), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'reset',  ),  1 =>   array (    0 => 'text',    1 => '/admin/listing/filter',  ),));
     }
 }

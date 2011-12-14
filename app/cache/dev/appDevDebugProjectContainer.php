@@ -82,6 +82,8 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioFrameworkExtraBundle', '/Users/srinivasan/projects/symfony2/app/Resources/SensioFrameworkExtraBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioFrameworkExtraBundle', '/Users/srinivasan/projects/symfony2/vendor/bundles/Sensio/Bundle/FrameworkExtraBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'JMSSecurityExtraBundle', '/Users/srinivasan/projects/symfony2/app/Resources/JMSSecurityExtraBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'JMSSecurityExtraBundle', '/Users/srinivasan/projects/symfony2/vendor/bundles/JMS/SecurityExtraBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SriniBlogBundle', '/Users/srinivasan/projects/symfony2/app/Resources/SriniBlogBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SriniBlogBundle', '/Users/srinivasan/projects/symfony2/src/Srini/BlogBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LyraAdminBundle', '/Users/srinivasan/projects/symfony2/app/Resources/LyraAdminBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LyraAdminBundle', '/Users/srinivasan/projects/symfony2/vendor/bundles/Lyra/AdminBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AcmeClassifiedsBundle', '/Users/srinivasan/projects/symfony2/app/Resources/AcmeClassifiedsBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AcmeClassifiedsBundle', '/Users/srinivasan/projects/symfony2/src/Acme/ClassifiedsBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AcmeDemoBundle', '/Users/srinivasan/projects/symfony2/app/Resources/AcmeDemoBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AcmeDemoBundle', '/Users/srinivasan/projects/symfony2/src/Acme/DemoBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'WebProfilerBundle', '/Users/srinivasan/projects/symfony2/app/Resources/WebProfilerBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'WebProfilerBundle', '/Users/srinivasan/projects/symfony2/vendor/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioDistributionBundle', '/Users/srinivasan/projects/symfony2/app/Resources/SensioDistributionBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioDistributionBundle', '/Users/srinivasan/projects/symfony2/vendor/bundles/Sensio/Bundle/DistributionBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
@@ -241,9 +243,10 @@ class appDevDebugProjectContainer extends Container
 
         $e = new \Doctrine\ORM\Mapping\Driver\DriverChain();
         $e->addDriver($d, 'Srini\\BlogBundle\\Entity');
+        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver(new \Symfony\Bridge\Doctrine\Annotations\IndexedReader($this->get('annotation_reader')), array(0 => '/Users/srinivasan/projects/symfony2/src/Acme/ClassifiedsBundle/Entity')), 'Acme\\ClassifiedsBundle\\Entity');
 
         $f = new \Doctrine\ORM\Configuration();
-        $f->setEntityNamespaces(array('SriniBlogBundle' => 'Srini\\BlogBundle\\Entity'));
+        $f->setEntityNamespaces(array('SriniBlogBundle' => 'Srini\\BlogBundle\\Entity', 'AcmeClassifiedsBundle' => 'Acme\\ClassifiedsBundle\\Entity'));
         $f->setMetadataCacheImpl($a);
         $f->setQueryCacheImpl($b);
         $f->setResultCacheImpl($c);
@@ -368,7 +371,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getForm_FactoryService()
     {
-        return $this->services['form.factory'] = new \Symfony\Component\Form\FormFactory(array(0 => new \Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension($this, array('field' => 'form.type.field', 'form' => 'form.type.form', 'birthday' => 'form.type.birthday', 'checkbox' => 'form.type.checkbox', 'choice' => 'form.type.choice', 'collection' => 'form.type.collection', 'country' => 'form.type.country', 'date' => 'form.type.date', 'datetime' => 'form.type.datetime', 'email' => 'form.type.email', 'file' => 'form.type.file', 'hidden' => 'form.type.hidden', 'integer' => 'form.type.integer', 'language' => 'form.type.language', 'locale' => 'form.type.locale', 'money' => 'form.type.money', 'number' => 'form.type.number', 'password' => 'form.type.password', 'percent' => 'form.type.percent', 'radio' => 'form.type.radio', 'repeated' => 'form.type.repeated', 'search' => 'form.type.search', 'textarea' => 'form.type.textarea', 'text' => 'form.type.text', 'time' => 'form.type.time', 'timezone' => 'form.type.timezone', 'url' => 'form.type.url', 'csrf' => 'form.type.csrf', 'entity' => 'form.type.entity'), array('field' => array(0 => 'form.type_extension.field'), 'form' => array(0 => 'form.type_extension.csrf')), array(0 => 'form.type_guesser.validator', 1 => 'form.type_guesser.doctrine'))));
+        return $this->services['form.factory'] = new \Symfony\Component\Form\FormFactory(array(0 => new \Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension($this, array('field' => 'form.type.field', 'form' => 'form.type.form', 'birthday' => 'form.type.birthday', 'checkbox' => 'form.type.checkbox', 'choice' => 'form.type.choice', 'collection' => 'form.type.collection', 'country' => 'form.type.country', 'date' => 'form.type.date', 'datetime' => 'form.type.datetime', 'email' => 'form.type.email', 'file' => 'form.type.file', 'hidden' => 'form.type.hidden', 'integer' => 'form.type.integer', 'language' => 'form.type.language', 'locale' => 'form.type.locale', 'money' => 'form.type.money', 'number' => 'form.type.number', 'password' => 'form.type.password', 'percent' => 'form.type.percent', 'radio' => 'form.type.radio', 'repeated' => 'form.type.repeated', 'search' => 'form.type.search', 'textarea' => 'form.type.textarea', 'text' => 'form.type.text', 'time' => 'form.type.time', 'timezone' => 'form.type.timezone', 'url' => 'form.type.url', 'csrf' => 'form.type.csrf', 'entity' => 'form.type.entity', 'daterange' => 'form.type.date_range'), array('field' => array(0 => 'form.type_extension.field'), 'form' => array(0 => 'form.type_extension.csrf')), array(0 => 'form.type_guesser.validator', 1 => 'form.type_guesser.doctrine'))));
     }
 
     /**
@@ -460,6 +463,19 @@ class appDevDebugProjectContainer extends Container
     protected function getForm_Type_DateService()
     {
         return $this->services['form.type.date'] = new \Symfony\Component\Form\Extension\Core\Type\DateType();
+    }
+
+    /**
+     * Gets the 'form.type.date_range' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Form\DateRangeType A Lyra\AdminBundle\Form\DateRangeType instance.
+     */
+    protected function getForm_Type_DateRangeService()
+    {
+        return $this->services['form.type.date_range'] = new \Lyra\AdminBundle\Form\DateRangeType();
     }
 
     /**
@@ -846,6 +862,123 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'lyra_admin.default.model_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Model\ORM\ModelManager A Lyra\AdminBundle\Model\ORM\ModelManager instance.
+     */
+    protected function getLyraAdmin_Default_ModelManagerService()
+    {
+        return $this->services['lyra_admin.default.model_manager'] = new \Lyra\AdminBundle\Model\ORM\ModelManager($this->get('doctrine.orm.default_entity_manager'));
+    }
+
+    /**
+     * Gets the 'lyra_admin.dialog_renderer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Renderer\DialogRenderer A Lyra\AdminBundle\Renderer\DialogRenderer instance.
+     */
+    protected function getLyraAdmin_DialogRendererService()
+    {
+        return $this->services['lyra_admin.dialog_renderer'] = new \Lyra\AdminBundle\Renderer\DialogRenderer();
+    }
+
+    /**
+     * Gets the 'lyra_admin.filter_renderer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Renderer\FilterRenderer A Lyra\AdminBundle\Renderer\FilterRenderer instance.
+     */
+    protected function getLyraAdmin_FilterRendererService()
+    {
+        return $this->services['lyra_admin.filter_renderer'] = new \Lyra\AdminBundle\Renderer\FilterRenderer($this->get('lyra_admin.form_factory'));
+    }
+
+    /**
+     * Gets the 'lyra_admin.form_factory' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\FormFactory\AdminFormFactory A Lyra\AdminBundle\FormFactory\AdminFormFactory instance.
+     */
+    protected function getLyraAdmin_FormFactoryService()
+    {
+        return $this->services['lyra_admin.form_factory'] = new \Lyra\AdminBundle\FormFactory\AdminFormFactory($this->get('form.factory'));
+    }
+
+    /**
+     * Gets the 'lyra_admin.form_renderer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Renderer\FormRenderer A Lyra\AdminBundle\Renderer\FormRenderer instance.
+     */
+    protected function getLyraAdmin_FormRendererService()
+    {
+        return $this->services['lyra_admin.form_renderer'] = new \Lyra\AdminBundle\Renderer\FormRenderer($this->get('lyra_admin.form_factory'));
+    }
+
+    /**
+     * Gets the 'lyra_admin.list_renderer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Renderer\ListRenderer A Lyra\AdminBundle\Renderer\ListRenderer instance.
+     */
+    protected function getLyraAdmin_ListRendererService()
+    {
+        return $this->services['lyra_admin.list_renderer'] = new \Lyra\AdminBundle\Renderer\ListRenderer();
+    }
+
+    /**
+     * Gets the 'lyra_admin.model_manager_factory' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Model\ModelManagerFactory A Lyra\AdminBundle\Model\ModelManagerFactory instance.
+     */
+    protected function getLyraAdmin_ModelManagerFactoryService()
+    {
+        return $this->services['lyra_admin.model_manager_factory'] = new \Lyra\AdminBundle\Model\ModelManagerFactory($this);
+    }
+
+    /**
+     * Gets the 'lyra_admin.renderer_factory' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Renderer\RendererFactory A Lyra\AdminBundle\Renderer\RendererFactory instance.
+     */
+    protected function getLyraAdmin_RendererFactoryService()
+    {
+        return $this->services['lyra_admin.renderer_factory'] = new \Lyra\AdminBundle\Renderer\RendererFactory($this);
+    }
+
+    /**
+     * Gets the 'lyra_admin.routing_loader' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Lyra\AdminBundle\Routing\RouteLoader A Lyra\AdminBundle\Routing\RouteLoader instance.
+     */
+    protected function getLyraAdmin_RoutingLoaderService()
+    {
+        return $this->services['lyra_admin.routing_loader'] = new \Lyra\AdminBundle\Routing\RouteLoader(array('route_pattern_prefix' => 'admin', 'models' => array('listing' => array('controller' => 'LyraAdminBundle:Admin', 'route_pattern_prefix' => 'listing', 'route_prefix' => 'lyra_admin_listing', 'actions' => array('new' => array('route_pattern' => 'new', 'route_defaults' => array()), 'index' => array('route_pattern' => 'list/{page}/{field}/{order}', 'route_defaults' => array('page' => NULL, 'field' => NULL, 'order' => NULL)), 'edit' => array('route_pattern' => '{id}/edit', 'route_defaults' => array()), 'delete' => array('route_pattern' => '{id}/delete', 'route_defaults' => array()), 'object' => array('route_pattern' => 'object', 'route_defaults' => array()), 'filter' => array('route_pattern' => 'filter/{reset}', 'route_defaults' => array('reset' => NULL)))))), '/Users/srinivasan/projects/symfony2/app/cache/dev');
+    }
+
+    /**
      * Gets the 'mailer' service.
      *
      * This service is shared.
@@ -1154,6 +1287,7 @@ class appDevDebugProjectContainer extends Container
         $d->addLoader(new \Symfony\Component\Routing\Loader\AnnotationDirectoryLoader($a, $c));
         $d->addLoader(new \Symfony\Component\Routing\Loader\AnnotationFileLoader($a, $c));
         $d->addLoader($c);
+        $d->addLoader($this->get('lyra_admin.routing_loader'));
 
         return $this->services['routing.loader'] = new \Symfony\Bundle\FrameworkBundle\Routing\DelegatingLoader($this->get('controller_name_converter'), $this->get('monolog.logger.router'), $d);
     }
@@ -1758,7 +1892,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bundle\TwigBundle\Extension\CodeExtension($this));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\RoutingExtension($this->get('router')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\YamlExtension());
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(array(0 => 'form_div_layout.html.twig')));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(array(0 => 'LyraAdminBundle:Admin:fields.html.twig')));
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), true, array()));
         $instance->addExtension($this->get('twig.extension.acme.demo'));
 
@@ -1849,6 +1983,16 @@ class appDevDebugProjectContainer extends Container
     protected function getDoctrine_Orm_EntityManagerService()
     {
         return $this->get('doctrine.orm.default_entity_manager');
+    }
+
+    /**
+     * Gets the lyra_admin.listing.model_manager service alias.
+     *
+     * @return Lyra\AdminBundle\Model\ORM\ModelManager An instance of the lyra_admin.default.model_manager service
+     */
+    protected function getLyraAdmin_Listing_ModelManagerService()
+    {
+        return $this->get('lyra_admin.default.model_manager');
     }
 
     /**
@@ -2130,6 +2274,8 @@ class appDevDebugProjectContainer extends Container
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
                 'JMSSecurityExtraBundle' => 'JMS\\SecurityExtraBundle\\JMSSecurityExtraBundle',
                 'SriniBlogBundle' => 'Srini\\BlogBundle\\SriniBlogBundle',
+                'LyraAdminBundle' => 'Lyra\\AdminBundle\\LyraAdminBundle',
+                'AcmeClassifiedsBundle' => 'Acme\\ClassifiedsBundle\\AcmeClassifiedsBundle',
                 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
@@ -2346,7 +2492,7 @@ class appDevDebugProjectContainer extends Container
             'twig.exception_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener',
             'twig.exception_listener.controller' => 'Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController::showAction',
             'twig.form.resources' => array(
-                0 => 'form_div_layout.html.twig',
+                0 => 'LyraAdminBundle:Admin:fields.html.twig',
             ),
             'twig.options' => array(
                 'debug' => true,
@@ -2490,6 +2636,800 @@ class appDevDebugProjectContainer extends Container
             'security.extra.controller_listener.class' => 'JMS\\SecurityExtraBundle\\Controller\\ControllerListener',
             'security.access.iddqd_voter.class' => 'JMS\\SecurityExtraBundle\\Security\\Authorization\\Voter\\IddqdVoter',
             'security.extra.secure_all_services' => false,
+            'lyra_admin.form_factory.class' => 'Lyra\\AdminBundle\\FormFactory\\AdminFormFactory',
+            'lyra_admin.renderer_factory.class' => 'Lyra\\AdminBundle\\Renderer\\RendererFactory',
+            'lyra_admin.list_renderer.class' => 'Lyra\\AdminBundle\\Renderer\\ListRenderer',
+            'lyra_admin.form_renderer.class' => 'Lyra\\AdminBundle\\Renderer\\FormRenderer',
+            'lyra_admin.model_manager_factory.class' => 'Lyra\\AdminBundle\\Model\\ModelManagerFactory',
+            'lyra_admin.dialog_renderer.class' => 'Lyra\\AdminBundle\\Renderer\\DialogRenderer',
+            'lyra_admin.filter_renderer.class' => 'Lyra\\AdminBundle\\Renderer\\FilterRenderer',
+            'lyra_admin.options' => array(
+                'models' => array(
+                    'listing' => array(
+                        'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+                        'actions' => array(
+                            'new' => array(
+                                'text' => 'New listing',
+                                'icon' => 'circle-plus',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                        ),
+                        'list' => array(
+                            'title' => 'Listings',
+                            'columns' => array(
+                                'ad_title' => array(
+                                    'type' => NULL,
+                                    'sortable' => true,
+                                    'format' => NULL,
+                                    'format_function' => NULL,
+                                    'boolean_actions' => array(
+                                        0 => '_boolean_on',
+                                        1 => '_boolean_off',
+                                    ),
+                                ),
+                                'published' => array(
+                                    'type' => NULL,
+                                    'sortable' => true,
+                                    'format' => NULL,
+                                    'format_function' => NULL,
+                                    'boolean_actions' => array(
+                                        0 => '_boolean_on',
+                                        1 => '_boolean_off',
+                                    ),
+                                ),
+                                'posted_at' => array(
+                                    'type' => NULL,
+                                    'sortable' => true,
+                                    'format' => NULL,
+                                    'format_function' => NULL,
+                                    'boolean_actions' => array(
+                                        0 => '_boolean_on',
+                                        1 => '_boolean_off',
+                                    ),
+                                ),
+                            ),
+                            'template' => 'LyraAdminBundle:Admin:index.html.twig',
+                            'max_page_rows' => 20,
+                            'auto_labels' => true,
+                            'default_sort' => array(
+                                'field' => NULL,
+                                'order' => 'asc',
+                            ),
+                            'object_actions' => array(
+                                0 => 'edit',
+                                1 => 'delete',
+                            ),
+                            'batch_actions' => array(
+                                0 => 'delete',
+                            ),
+                            'list_actions' => array(
+                                0 => 'new',
+                            ),
+                        ),
+                        'filter' => array(
+                            'title' => 'Search listings',
+                            'fields' => array(
+                                'ad_title' => array(
+
+                                ),
+                                'posted_at' => array(
+
+                                ),
+                                'published' => array(
+
+                                ),
+                            ),
+                        ),
+                        'controller' => 'LyraAdminBundle:Admin',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'fields' => array(
+
+                        ),
+                        'form' => array(
+                            'template' => 'LyraAdminBundle:Admin:form.html.twig',
+                            'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
+                            'groups' => array(
+
+                            ),
+                            'new' => array(
+                                'title' => 'New',
+                                'groups' => array(
+
+                                ),
+                            ),
+                            'edit' => array(
+                                'title' => 'Edit',
+                                'groups' => array(
+
+                                ),
+                            ),
+                        ),
+                        'services' => array(
+                            'model_manager' => 'lyra_admin.default.model_manager',
+                        ),
+                    ),
+                ),
+                'db_driver' => 'orm',
+                'route_pattern_prefix' => 'admin',
+                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+                'actions' => array(
+                    'index' => array(
+                        'route_pattern' => 'list/{page}/{field}/{order}',
+                        'route_defaults' => array(
+                            'page' => NULL,
+                            'field' => NULL,
+                            'order' => NULL,
+                        ),
+                    ),
+                    'new' => array(
+                        'route_pattern' => 'new',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'document',
+                        'text' => 'list.action.new',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'edit' => array(
+                        'route_pattern' => '{id}/edit',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'pencil',
+                        'text' => 'list.action.edit',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'delete' => array(
+                        'route_pattern' => '{id}/delete',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'trash',
+                        'text' => 'list.action.delete',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'dialog' => array(
+                            'title' => 'dialog.title.delete',
+                            'message' => 'dialog.message.delete',
+                        ),
+                    ),
+                    'object' => array(
+                        'route_pattern' => 'object',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'filter' => array(
+                        'route_pattern' => 'filter/{reset}',
+                        'route_defaults' => array(
+                            'reset' => NULL,
+                        ),
+                    ),
+                ),
+            ),
+            'lyra_admin.listing.options' => array(
+                'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+                'actions' => array(
+                    'new' => array(
+                        'route_pattern' => 'new',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'circle-plus',
+                        'text' => 'New listing',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'index' => array(
+                        'route_pattern' => 'list/{page}/{field}/{order}',
+                        'route_defaults' => array(
+                            'page' => NULL,
+                            'field' => NULL,
+                            'order' => NULL,
+                        ),
+                    ),
+                    'edit' => array(
+                        'route_pattern' => '{id}/edit',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'pencil',
+                        'text' => 'list.action.edit',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'delete' => array(
+                        'route_pattern' => '{id}/delete',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'trash',
+                        'text' => 'list.action.delete',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'dialog' => array(
+                            'title' => 'dialog.title.delete',
+                            'message' => 'dialog.message.delete',
+                        ),
+                    ),
+                    'object' => array(
+                        'route_pattern' => 'object',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'filter' => array(
+                        'route_pattern' => 'filter/{reset}',
+                        'route_defaults' => array(
+                            'reset' => NULL,
+                        ),
+                    ),
+                ),
+                'list' => array(
+                    'title' => 'Listings',
+                    'columns' => array(
+                        'ad_title' => array(
+                            'type' => NULL,
+                            'sortable' => true,
+                            'format' => NULL,
+                            'format_function' => NULL,
+                            'boolean_actions' => array(
+                                0 => '_boolean_on',
+                                1 => '_boolean_off',
+                            ),
+                            'sorted' => false,
+                            'name' => 'ad_title',
+                            'label' => 'Ad title',
+                            'property_name' => 'ad_title',
+                        ),
+                        'published' => array(
+                            'type' => NULL,
+                            'sortable' => true,
+                            'format' => NULL,
+                            'format_function' => NULL,
+                            'boolean_actions' => array(
+                                0 => '_boolean_on',
+                                1 => '_boolean_off',
+                            ),
+                            'sorted' => false,
+                            'name' => 'published',
+                            'label' => 'Published',
+                            'property_name' => 'published',
+                        ),
+                        'posted_at' => array(
+                            'type' => NULL,
+                            'sortable' => true,
+                            'format' => NULL,
+                            'format_function' => NULL,
+                            'boolean_actions' => array(
+                                0 => '_boolean_on',
+                                1 => '_boolean_off',
+                            ),
+                            'sorted' => false,
+                            'name' => 'posted_at',
+                            'label' => 'Posted at',
+                            'property_name' => 'posted_at',
+                        ),
+                    ),
+                    'template' => 'LyraAdminBundle:Admin:index.html.twig',
+                    'max_page_rows' => 20,
+                    'auto_labels' => true,
+                    'default_sort' => array(
+                        'field' => NULL,
+                        'order' => 'asc',
+                    ),
+                    'object_actions' => array(
+                        0 => 'edit',
+                        1 => 'delete',
+                    ),
+                    'batch_actions' => array(
+                        0 => 'delete',
+                    ),
+                    'list_actions' => array(
+                        0 => 'new',
+                    ),
+                ),
+                'filter' => array(
+                    'title' => 'Search listings',
+                    'fields' => array(
+                        'ad_title' => array(
+
+                        ),
+                        'posted_at' => array(
+
+                        ),
+                        'published' => array(
+
+                        ),
+                    ),
+                ),
+                'controller' => 'LyraAdminBundle:Admin',
+                'trans_domain' => 'LyraAdminBundle',
+                'fields' => array(
+
+                ),
+                'form' => array(
+                    'template' => 'LyraAdminBundle:Admin:form.html.twig',
+                    'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
+                    'groups' => array(
+
+                    ),
+                    'new' => array(
+                        'title' => 'New',
+                        'groups' => array(
+
+                        ),
+                    ),
+                    'edit' => array(
+                        'title' => 'Edit',
+                        'groups' => array(
+
+                        ),
+                    ),
+                ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
+                'route_prefix' => 'lyra_admin_listing',
+                'route_pattern_prefix' => 'listing',
+                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+            ),
+            'lyra_admin.listing.actions.options' => array(
+                'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+                'actions' => array(
+                    'new' => array(
+                        'route_pattern' => 'new',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'circle-plus',
+                        'text' => 'New listing',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'index' => array(
+                        'route_pattern' => 'list/{page}/{field}/{order}',
+                        'route_defaults' => array(
+                            'page' => NULL,
+                            'field' => NULL,
+                            'order' => NULL,
+                        ),
+                    ),
+                    'edit' => array(
+                        'route_pattern' => '{id}/edit',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'pencil',
+                        'text' => 'list.action.edit',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'delete' => array(
+                        'route_pattern' => '{id}/delete',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'trash',
+                        'text' => 'list.action.delete',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'dialog' => array(
+                            'title' => 'dialog.title.delete',
+                            'message' => 'dialog.message.delete',
+                        ),
+                    ),
+                    'object' => array(
+                        'route_pattern' => 'object',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'filter' => array(
+                        'route_pattern' => 'filter/{reset}',
+                        'route_defaults' => array(
+                            'reset' => NULL,
+                        ),
+                    ),
+                ),
+                'filter' => array(
+                    'title' => 'Search listings',
+                    'fields' => array(
+                        'ad_title' => array(
+
+                        ),
+                        'posted_at' => array(
+
+                        ),
+                        'published' => array(
+
+                        ),
+                    ),
+                ),
+                'controller' => 'LyraAdminBundle:Admin',
+                'trans_domain' => 'LyraAdminBundle',
+                'fields' => array(
+
+                ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
+                'route_prefix' => 'lyra_admin_listing',
+                'route_pattern_prefix' => 'listing',
+                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+            ),
+            'lyra_admin.listing.list.options' => array(
+                'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+                'actions' => array(
+                    'new' => array(
+                        'route_pattern' => 'new',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'circle-plus',
+                        'text' => 'New listing',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'index' => array(
+                        'route_pattern' => 'list/{page}/{field}/{order}',
+                        'route_defaults' => array(
+                            'page' => NULL,
+                            'field' => NULL,
+                            'order' => NULL,
+                        ),
+                    ),
+                    'edit' => array(
+                        'route_pattern' => '{id}/edit',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'pencil',
+                        'text' => 'list.action.edit',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'delete' => array(
+                        'route_pattern' => '{id}/delete',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'trash',
+                        'text' => 'list.action.delete',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'dialog' => array(
+                            'title' => 'dialog.title.delete',
+                            'message' => 'dialog.message.delete',
+                        ),
+                    ),
+                    'object' => array(
+                        'route_pattern' => 'object',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'filter' => array(
+                        'route_pattern' => 'filter/{reset}',
+                        'route_defaults' => array(
+                            'reset' => NULL,
+                        ),
+                    ),
+                ),
+                'list' => array(
+                    'title' => 'Listings',
+                    'columns' => array(
+                        'ad_title' => array(
+                            'type' => NULL,
+                            'sortable' => true,
+                            'format' => NULL,
+                            'format_function' => NULL,
+                            'boolean_actions' => array(
+                                0 => '_boolean_on',
+                                1 => '_boolean_off',
+                            ),
+                            'sorted' => false,
+                            'name' => 'ad_title',
+                            'label' => 'Ad title',
+                            'property_name' => 'ad_title',
+                        ),
+                        'published' => array(
+                            'type' => NULL,
+                            'sortable' => true,
+                            'format' => NULL,
+                            'format_function' => NULL,
+                            'boolean_actions' => array(
+                                0 => '_boolean_on',
+                                1 => '_boolean_off',
+                            ),
+                            'sorted' => false,
+                            'name' => 'published',
+                            'label' => 'Published',
+                            'property_name' => 'published',
+                        ),
+                        'posted_at' => array(
+                            'type' => NULL,
+                            'sortable' => true,
+                            'format' => NULL,
+                            'format_function' => NULL,
+                            'boolean_actions' => array(
+                                0 => '_boolean_on',
+                                1 => '_boolean_off',
+                            ),
+                            'sorted' => false,
+                            'name' => 'posted_at',
+                            'label' => 'Posted at',
+                            'property_name' => 'posted_at',
+                        ),
+                    ),
+                    'template' => 'LyraAdminBundle:Admin:index.html.twig',
+                    'max_page_rows' => 20,
+                    'auto_labels' => true,
+                    'default_sort' => array(
+                        'field' => NULL,
+                        'order' => 'asc',
+                    ),
+                    'object_actions' => array(
+                        0 => 'edit',
+                        1 => 'delete',
+                    ),
+                    'batch_actions' => array(
+                        0 => 'delete',
+                    ),
+                    'list_actions' => array(
+                        0 => 'new',
+                    ),
+                ),
+                'filter' => array(
+                    'title' => 'Search listings',
+                    'fields' => array(
+                        'ad_title' => array(
+
+                        ),
+                        'posted_at' => array(
+
+                        ),
+                        'published' => array(
+
+                        ),
+                    ),
+                ),
+                'controller' => 'LyraAdminBundle:Admin',
+                'trans_domain' => 'LyraAdminBundle',
+                'fields' => array(
+
+                ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
+                'route_prefix' => 'lyra_admin_listing',
+                'route_pattern_prefix' => 'listing',
+                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+            ),
+            'lyra_admin.listing.form.options' => array(
+                'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+                'actions' => array(
+                    'new' => array(
+                        'route_pattern' => 'new',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'circle-plus',
+                        'text' => 'New listing',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'index' => array(
+                        'route_pattern' => 'list/{page}/{field}/{order}',
+                        'route_defaults' => array(
+                            'page' => NULL,
+                            'field' => NULL,
+                            'order' => NULL,
+                        ),
+                    ),
+                    'edit' => array(
+                        'route_pattern' => '{id}/edit',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'pencil',
+                        'text' => 'list.action.edit',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'delete' => array(
+                        'route_pattern' => '{id}/delete',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'trash',
+                        'text' => 'list.action.delete',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'dialog' => array(
+                            'title' => 'dialog.title.delete',
+                            'message' => 'dialog.message.delete',
+                        ),
+                    ),
+                    'object' => array(
+                        'route_pattern' => 'object',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'filter' => array(
+                        'route_pattern' => 'filter/{reset}',
+                        'route_defaults' => array(
+                            'reset' => NULL,
+                        ),
+                    ),
+                ),
+                'filter' => array(
+                    'title' => 'Search listings',
+                    'fields' => array(
+                        'ad_title' => array(
+
+                        ),
+                        'posted_at' => array(
+
+                        ),
+                        'published' => array(
+
+                        ),
+                    ),
+                ),
+                'controller' => 'LyraAdminBundle:Admin',
+                'trans_domain' => 'LyraAdminBundle',
+                'fields' => array(
+
+                ),
+                'form' => array(
+                    'template' => 'LyraAdminBundle:Admin:form.html.twig',
+                    'class' => 'Lyra\\AdminBundle\\Form\\AdminFormType',
+                    'groups' => array(
+
+                    ),
+                    'new' => array(
+                        'title' => 'New',
+                        'groups' => array(
+
+                        ),
+                    ),
+                    'edit' => array(
+                        'title' => 'Edit',
+                        'groups' => array(
+
+                        ),
+                    ),
+                ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
+                'route_prefix' => 'lyra_admin_listing',
+                'route_pattern_prefix' => 'listing',
+                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+            ),
+            'lyra_admin.listing.filter.options' => array(
+                'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+                'actions' => array(
+                    'new' => array(
+                        'route_pattern' => 'new',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'circle-plus',
+                        'text' => 'New listing',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'index' => array(
+                        'route_pattern' => 'list/{page}/{field}/{order}',
+                        'route_defaults' => array(
+                            'page' => NULL,
+                            'field' => NULL,
+                            'order' => NULL,
+                        ),
+                    ),
+                    'edit' => array(
+                        'route_pattern' => '{id}/edit',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'pencil',
+                        'text' => 'list.action.edit',
+                        'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'delete' => array(
+                        'route_pattern' => '{id}/delete',
+                        'route_defaults' => array(
+
+                        ),
+                        'icon' => 'trash',
+                        'text' => 'list.action.delete',
+                        'trans_domain' => 'LyraAdminBundle',
+                        'dialog' => array(
+                            'title' => 'dialog.title.delete',
+                            'message' => 'dialog.message.delete',
+                        ),
+                    ),
+                    'object' => array(
+                        'route_pattern' => 'object',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'filter' => array(
+                        'route_pattern' => 'filter/{reset}',
+                        'route_defaults' => array(
+                            'reset' => NULL,
+                        ),
+                    ),
+                ),
+                'filter' => array(
+                    'title' => 'Search listings',
+                    'fields' => array(
+                        'ad_title' => array(
+
+                        ),
+                        'posted_at' => array(
+
+                        ),
+                        'published' => array(
+
+                        ),
+                    ),
+                ),
+                'controller' => 'LyraAdminBundle:Admin',
+                'trans_domain' => 'LyraAdminBundle',
+                'fields' => array(
+
+                ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
+                'route_prefix' => 'lyra_admin_listing',
+                'route_pattern_prefix' => 'listing',
+                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+            ),
+            'lyra_admin.listing.class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
+            'lyra_admin.routes' => array(
+                'route_pattern_prefix' => 'admin',
+                'models' => array(
+                    'listing' => array(
+                        'controller' => 'LyraAdminBundle:Admin',
+                        'route_pattern_prefix' => 'listing',
+                        'route_prefix' => 'lyra_admin_listing',
+                        'actions' => array(
+                            'new' => array(
+                                'route_pattern' => 'new',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'index' => array(
+                                'route_pattern' => 'list/{page}/{field}/{order}',
+                                'route_defaults' => array(
+                                    'page' => NULL,
+                                    'field' => NULL,
+                                    'order' => NULL,
+                                ),
+                            ),
+                            'edit' => array(
+                                'route_pattern' => '{id}/edit',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'delete' => array(
+                                'route_pattern' => '{id}/delete',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'object' => array(
+                                'route_pattern' => 'object',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'filter' => array(
+                                'route_pattern' => 'filter/{reset}',
+                                'route_defaults' => array(
+                                    'reset' => NULL,
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             'web_profiler.debug_toolbar.class' => 'Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener',
             'web_profiler.debug_toolbar.intercept_redirects' => false,
             'web_profiler.debug_toolbar.mode' => 2,

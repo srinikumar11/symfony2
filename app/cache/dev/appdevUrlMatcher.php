@@ -143,6 +143,11 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // AcmeClassifiedsBundle_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]+?)$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Acme\\ClassifiedsBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'AcmeClassifiedsBundle_homepage'));
+        }
+
         // SriniBlogBundle_homepage
         if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]+?)$#xs', $pathinfo, $matches)) {
             return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Srini\\BlogBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'SriniBlogBundle_homepage'));
@@ -202,6 +207,36 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
             not_post_delete:
 
+        }
+
+        // lyra_admin_listing_index
+        if (0 === strpos($pathinfo, '/admin/listing/list') && preg_match('#^/admin/listing/list(?:/(?P<page>[^/]+?)(?:/(?P<field>[^/]+?)(?:/(?P<order>[^/]+?))?)?)?$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::indexAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'index',  'page' => NULL,  'field' => NULL,  'order' => NULL,)), array('_route' => 'lyra_admin_listing_index'));
+        }
+
+        // lyra_admin_listing_new
+        if ($pathinfo === '/admin/listing/new') {
+            return array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::newAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'new',  '_route' => 'lyra_admin_listing_new',);
+        }
+
+        // lyra_admin_listing_edit
+        if (0 === strpos($pathinfo, '/admin/listing') && preg_match('#^/admin/listing/(?P<id>[^/]+?)/edit$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::editAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'edit',)), array('_route' => 'lyra_admin_listing_edit'));
+        }
+
+        // lyra_admin_listing_delete
+        if (0 === strpos($pathinfo, '/admin/listing') && preg_match('#^/admin/listing/(?P<id>[^/]+?)/delete$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::deleteAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'delete',)), array('_route' => 'lyra_admin_listing_delete'));
+        }
+
+        // lyra_admin_listing_object
+        if ($pathinfo === '/admin/listing/object') {
+            return array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::objectAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'object',  '_route' => 'lyra_admin_listing_object',);
+        }
+
+        // lyra_admin_listing_filter
+        if (0 === strpos($pathinfo, '/admin/listing/filter') && preg_match('#^/admin/listing/filter(?:/(?P<reset>[^/]+?))?$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::filterAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'filter',  'reset' => NULL,)), array('_route' => 'lyra_admin_listing_filter'));
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

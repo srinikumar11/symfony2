@@ -1,0 +1,3 @@
+[submodule "vendor/bundles/Lyra/AdminBundle"]
+	path = vendor/bundles/Lyra/AdminBundle
+	url = git://github.com/mgiagnoni/LyraAdminBundle.git
