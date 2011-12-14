@@ -60,34 +60,60 @@ jms_security_extra:
     secure_all_services: false
 
 lyra_admin:
+    theme: smoothness # or ui-lightness (default)
+    # additional themes installed in web/css/ui_themes
+    #theme: css/ui_themes/redmond
     models:
         listing:
             class: 'Acme\ClassifiedsBundle\Entity\Listing'
-            form:
-              groups:
-                listing:
-                    # panel title
-                    caption: Listing
-                    fields: [ad_title,ad_text]
-                    # column break after this panel
-                    break_after: true
-                status:
-                    caption: Status
-                    fields: [published,expires_at]
-            filter:
-            # search dialog title
-              title: Search listings
-              fields:
-                ad_title: ~
-                posted_at: ~
-                published: ~
+#            controller: 'AcmeClassifiedsBundle:Admin'
             actions:
-              new:
-                text: 'New listing'
-                icon: circle-plus    
+                publish:
+                    # for batch actions it's the text displayed in drop down list
+                    text: Publish
+                unpublish:
+                    text: Unpublish
+                new:
+                    # for list/object actions it's the button text
+                    text: 'New listing'
+                    # button icon
+                    icon: circle-plus
+                expired:
+                    route_pattern: expired
+                    text: 'Delete expired'
+                    icon: trash
+                    dialog:
+                        title: 'Confirm delete expired'
+                        message: 'Do you really want to delete all expired listings?'
             list:
                 title: Listings
                 columns:
                     ad_title: ~
-                    published: ~
+                    published:
+                        sortable: false
+                    posted_at:
+                        label: Date
+                        format: 'j/M/Y'
+                batch_actions: [publish,unpublish,delete]
+                list_actions: [new,expired]
+            filter:
+                # search dialog title
+                title: Search listings
+                fields:
+                    ad_title: ~
                     posted_at: ~
+                    published: ~
+            form:
+                groups:
+                    listing:
+                        # panel title
+                        caption: Listing
+                        fields: [ad_title,ad_text]
+                        # column break after this panel
+                        break_after: true
+                    status:
+                        caption: Status
+                        fields: [published,expires_at]
+            services:
+                # service id of user defined model manager
+#                model_manager: classifieds_listing_manager

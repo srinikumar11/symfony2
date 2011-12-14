@@ -42,8 +42,9 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        'post_edit' => true,
        'post_update' => true,
        'post_delete' => true,
-       'lyra_admin_listing_index' => true,
        'lyra_admin_listing_new' => true,
+       'lyra_admin_listing_expired' => true,
+       'lyra_admin_listing_index' => true,
        'lyra_admin_listing_edit' => true,
        'lyra_admin_listing_delete' => true,
        'lyra_admin_listing_object' => true,
@@ -216,14 +217,19 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         return array(array (  0 => 'id',), array (  '_controller' => 'Srini\\BlogBundle\\Controller\\PostController::deleteAction',), array (  '_method' => 'post',), array (  0 =>   array (    0 => 'text',    1 => '/delete',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/post',  ),));
     }
 
-    private function getlyra_admin_listing_indexRouteInfo()
-    {
-        return array(array (  0 => 'page',  1 => 'field',  2 => 'order',), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::indexAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'index',  'page' => NULL,  'field' => NULL,  'order' => NULL,), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'order',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'field',  ),  2 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'page',  ),  3 =>   array (    0 => 'text',    1 => '/admin/listing/list',  ),));
-    }
-
     private function getlyra_admin_listing_newRouteInfo()
     {
         return array(array (), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::newAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'new',), array (), array (  0 =>   array (    0 => 'text',    1 => '/admin/listing/new',  ),));
+    }
+
+    private function getlyra_admin_listing_expiredRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::expiredAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'expired',), array (), array (  0 =>   array (    0 => 'text',    1 => '/admin/listing/expired',  ),));
+    }
+
+    private function getlyra_admin_listing_indexRouteInfo()
+    {
+        return array(array (  0 => 'page',  1 => 'field',  2 => 'order',), array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::indexAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'index',  'page' => NULL,  'field' => NULL,  'order' => NULL,), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'order',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'field',  ),  2 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'page',  ),  3 =>   array (    0 => 'text',    1 => '/admin/listing/list',  ),));
     }
 
     private function getlyra_admin_listing_editRouteInfo()

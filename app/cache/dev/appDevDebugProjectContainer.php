@@ -975,7 +975,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getLyraAdmin_RoutingLoaderService()
     {
-        return $this->services['lyra_admin.routing_loader'] = new \Lyra\AdminBundle\Routing\RouteLoader(array('route_pattern_prefix' => 'admin', 'models' => array('listing' => array('controller' => 'LyraAdminBundle:Admin', 'route_pattern_prefix' => 'listing', 'route_prefix' => 'lyra_admin_listing', 'actions' => array('new' => array('route_pattern' => 'new', 'route_defaults' => array()), 'index' => array('route_pattern' => 'list/{page}/{field}/{order}', 'route_defaults' => array('page' => NULL, 'field' => NULL, 'order' => NULL)), 'edit' => array('route_pattern' => '{id}/edit', 'route_defaults' => array()), 'delete' => array('route_pattern' => '{id}/delete', 'route_defaults' => array()), 'object' => array('route_pattern' => 'object', 'route_defaults' => array()), 'filter' => array('route_pattern' => 'filter/{reset}', 'route_defaults' => array('reset' => NULL)))))), '/Users/srinivasan/projects/symfony2/app/cache/dev');
+        return $this->services['lyra_admin.routing_loader'] = new \Lyra\AdminBundle\Routing\RouteLoader(array('route_pattern_prefix' => 'admin', 'models' => array('listing' => array('controller' => 'LyraAdminBundle:Admin', 'route_pattern_prefix' => 'listing', 'route_prefix' => 'lyra_admin_listing', 'actions' => array('new' => array('route_pattern' => 'new', 'route_defaults' => array()), 'expired' => array('route_pattern' => 'expired', 'route_defaults' => array()), 'index' => array('route_pattern' => 'list/{page}/{field}/{order}', 'route_defaults' => array('page' => NULL, 'field' => NULL, 'order' => NULL)), 'edit' => array('route_pattern' => '{id}/edit', 'route_defaults' => array()), 'delete' => array('route_pattern' => '{id}/delete', 'route_defaults' => array()), 'object' => array('route_pattern' => 'object', 'route_defaults' => array()), 'filter' => array('route_pattern' => 'filter/{reset}', 'route_defaults' => array('reset' => NULL)))))), '/Users/srinivasan/projects/symfony2/app/cache/dev');
     }
 
     /**
@@ -2644,13 +2644,38 @@ class appDevDebugProjectContainer extends Container
             'lyra_admin.dialog_renderer.class' => 'Lyra\\AdminBundle\\Renderer\\DialogRenderer',
             'lyra_admin.filter_renderer.class' => 'Lyra\\AdminBundle\\Renderer\\FilterRenderer',
             'lyra_admin.options' => array(
+                'theme' => 'bundles/lyraadmin/css/ui/smoothness',
                 'models' => array(
                     'listing' => array(
                         'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
                         'actions' => array(
+                            'publish' => array(
+                                'text' => 'Publish',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'unpublish' => array(
+                                'text' => 'Unpublish',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
                             'new' => array(
                                 'text' => 'New listing',
                                 'icon' => 'circle-plus',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'expired' => array(
+                                'route_pattern' => 'expired',
+                                'text' => 'Delete expired',
+                                'icon' => 'trash',
+                                'dialog' => array(
+                                    'title' => 'Confirm delete expired',
+                                    'message' => 'Do you really want to delete all expired listings?',
+                                ),
                                 'route_defaults' => array(
 
                                 ),
@@ -2670,8 +2695,8 @@ class appDevDebugProjectContainer extends Container
                                     ),
                                 ),
                                 'published' => array(
+                                    'sortable' => false,
                                     'type' => NULL,
-                                    'sortable' => true,
                                     'format' => NULL,
                                     'format_function' => NULL,
                                     'boolean_actions' => array(
@@ -2680,15 +2705,25 @@ class appDevDebugProjectContainer extends Container
                                     ),
                                 ),
                                 'posted_at' => array(
+                                    'label' => 'Date',
+                                    'format' => 'j/M/Y',
                                     'type' => NULL,
                                     'sortable' => true,
-                                    'format' => NULL,
                                     'format_function' => NULL,
                                     'boolean_actions' => array(
                                         0 => '_boolean_on',
                                         1 => '_boolean_off',
                                     ),
                                 ),
+                            ),
+                            'batch_actions' => array(
+                                0 => 'publish',
+                                1 => 'unpublish',
+                                2 => 'delete',
+                            ),
+                            'list_actions' => array(
+                                0 => 'new',
+                                1 => 'expired',
                             ),
                             'template' => 'LyraAdminBundle:Admin:index.html.twig',
                             'max_page_rows' => 20,
@@ -2700,12 +2735,6 @@ class appDevDebugProjectContainer extends Container
                             'object_actions' => array(
                                 0 => 'edit',
                                 1 => 'delete',
-                            ),
-                            'batch_actions' => array(
-                                0 => 'delete',
-                            ),
-                            'list_actions' => array(
-                                0 => 'new',
                             ),
                         ),
                         'form' => array(
@@ -2756,19 +2785,18 @@ class appDevDebugProjectContainer extends Container
                                 ),
                             ),
                         ),
+                        'services' => array(
+                            'model_manager' => 'lyra_admin.default.model_manager',
+                        ),
                         'controller' => 'LyraAdminBundle:Admin',
                         'trans_domain' => 'LyraAdminBundle',
                         'fields' => array(
 
                         ),
-                        'services' => array(
-                            'model_manager' => 'lyra_admin.default.model_manager',
-                        ),
                     ),
                 ),
                 'db_driver' => 'orm',
                 'route_pattern_prefix' => 'admin',
-                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
                 'actions' => array(
                     'index' => array(
                         'route_pattern' => 'list/{page}/{field}/{order}',
@@ -2826,6 +2854,18 @@ class appDevDebugProjectContainer extends Container
             'lyra_admin.listing.options' => array(
                 'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
                 'actions' => array(
+                    'publish' => array(
+                        'text' => 'Publish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'unpublish' => array(
+                        'text' => 'Unpublish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
                     'new' => array(
                         'route_pattern' => 'new',
                         'route_defaults' => array(
@@ -2834,6 +2874,18 @@ class appDevDebugProjectContainer extends Container
                         'icon' => 'circle-plus',
                         'text' => 'New listing',
                         'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'expired' => array(
+                        'route_pattern' => 'expired',
+                        'text' => 'Delete expired',
+                        'icon' => 'trash',
+                        'dialog' => array(
+                            'title' => 'Confirm delete expired',
+                            'message' => 'Do you really want to delete all expired listings?',
+                        ),
+                        'route_defaults' => array(
+
+                        ),
                     ),
                     'index' => array(
                         'route_pattern' => 'list/{page}/{field}/{order}',
@@ -2896,8 +2948,8 @@ class appDevDebugProjectContainer extends Container
                             'property_name' => 'ad_title',
                         ),
                         'published' => array(
+                            'sortable' => false,
                             'type' => NULL,
-                            'sortable' => true,
                             'format' => NULL,
                             'format_function' => NULL,
                             'boolean_actions' => array(
@@ -2910,9 +2962,10 @@ class appDevDebugProjectContainer extends Container
                             'property_name' => 'published',
                         ),
                         'posted_at' => array(
+                            'label' => 'Date',
+                            'format' => 'j/M/Y',
                             'type' => NULL,
                             'sortable' => true,
-                            'format' => NULL,
                             'format_function' => NULL,
                             'boolean_actions' => array(
                                 0 => '_boolean_on',
@@ -2920,9 +2973,17 @@ class appDevDebugProjectContainer extends Container
                             ),
                             'sorted' => false,
                             'name' => 'posted_at',
-                            'label' => 'Posted at',
                             'property_name' => 'posted_at',
                         ),
+                    ),
+                    'batch_actions' => array(
+                        0 => 'publish',
+                        1 => 'unpublish',
+                        2 => 'delete',
+                    ),
+                    'list_actions' => array(
+                        0 => 'new',
+                        1 => 'expired',
                     ),
                     'template' => 'LyraAdminBundle:Admin:index.html.twig',
                     'max_page_rows' => 20,
@@ -2934,12 +2995,6 @@ class appDevDebugProjectContainer extends Container
                     'object_actions' => array(
                         0 => 'edit',
                         1 => 'delete',
-                    ),
-                    'batch_actions' => array(
-                        0 => 'delete',
-                    ),
-                    'list_actions' => array(
-                        0 => 'new',
                     ),
                 ),
                 'form' => array(
@@ -2990,21 +3045,33 @@ class appDevDebugProjectContainer extends Container
                         ),
                     ),
                 ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
                 'controller' => 'LyraAdminBundle:Admin',
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
                 ),
-                'services' => array(
-                    'model_manager' => 'lyra_admin.default.model_manager',
-                ),
                 'route_prefix' => 'lyra_admin_listing',
                 'route_pattern_prefix' => 'listing',
-                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+                'theme' => 'bundles/lyraadmin/css/ui/smoothness',
             ),
             'lyra_admin.listing.actions.options' => array(
                 'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
                 'actions' => array(
+                    'publish' => array(
+                        'text' => 'Publish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'unpublish' => array(
+                        'text' => 'Unpublish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
                     'new' => array(
                         'route_pattern' => 'new',
                         'route_defaults' => array(
@@ -3013,6 +3080,18 @@ class appDevDebugProjectContainer extends Container
                         'icon' => 'circle-plus',
                         'text' => 'New listing',
                         'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'expired' => array(
+                        'route_pattern' => 'expired',
+                        'text' => 'Delete expired',
+                        'icon' => 'trash',
+                        'dialog' => array(
+                            'title' => 'Confirm delete expired',
+                            'message' => 'Do you really want to delete all expired listings?',
+                        ),
+                        'route_defaults' => array(
+
+                        ),
                     ),
                     'index' => array(
                         'route_pattern' => 'list/{page}/{field}/{order}',
@@ -3071,21 +3150,33 @@ class appDevDebugProjectContainer extends Container
                         ),
                     ),
                 ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
                 'controller' => 'LyraAdminBundle:Admin',
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
                 ),
-                'services' => array(
-                    'model_manager' => 'lyra_admin.default.model_manager',
-                ),
                 'route_prefix' => 'lyra_admin_listing',
                 'route_pattern_prefix' => 'listing',
-                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+                'theme' => 'bundles/lyraadmin/css/ui/smoothness',
             ),
             'lyra_admin.listing.list.options' => array(
                 'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
                 'actions' => array(
+                    'publish' => array(
+                        'text' => 'Publish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'unpublish' => array(
+                        'text' => 'Unpublish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
                     'new' => array(
                         'route_pattern' => 'new',
                         'route_defaults' => array(
@@ -3094,6 +3185,18 @@ class appDevDebugProjectContainer extends Container
                         'icon' => 'circle-plus',
                         'text' => 'New listing',
                         'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'expired' => array(
+                        'route_pattern' => 'expired',
+                        'text' => 'Delete expired',
+                        'icon' => 'trash',
+                        'dialog' => array(
+                            'title' => 'Confirm delete expired',
+                            'message' => 'Do you really want to delete all expired listings?',
+                        ),
+                        'route_defaults' => array(
+
+                        ),
                     ),
                     'index' => array(
                         'route_pattern' => 'list/{page}/{field}/{order}',
@@ -3156,8 +3259,8 @@ class appDevDebugProjectContainer extends Container
                             'property_name' => 'ad_title',
                         ),
                         'published' => array(
+                            'sortable' => false,
                             'type' => NULL,
-                            'sortable' => true,
                             'format' => NULL,
                             'format_function' => NULL,
                             'boolean_actions' => array(
@@ -3170,9 +3273,10 @@ class appDevDebugProjectContainer extends Container
                             'property_name' => 'published',
                         ),
                         'posted_at' => array(
+                            'label' => 'Date',
+                            'format' => 'j/M/Y',
                             'type' => NULL,
                             'sortable' => true,
-                            'format' => NULL,
                             'format_function' => NULL,
                             'boolean_actions' => array(
                                 0 => '_boolean_on',
@@ -3180,9 +3284,17 @@ class appDevDebugProjectContainer extends Container
                             ),
                             'sorted' => false,
                             'name' => 'posted_at',
-                            'label' => 'Posted at',
                             'property_name' => 'posted_at',
                         ),
+                    ),
+                    'batch_actions' => array(
+                        0 => 'publish',
+                        1 => 'unpublish',
+                        2 => 'delete',
+                    ),
+                    'list_actions' => array(
+                        0 => 'new',
+                        1 => 'expired',
                     ),
                     'template' => 'LyraAdminBundle:Admin:index.html.twig',
                     'max_page_rows' => 20,
@@ -3194,12 +3306,6 @@ class appDevDebugProjectContainer extends Container
                     'object_actions' => array(
                         0 => 'edit',
                         1 => 'delete',
-                    ),
-                    'batch_actions' => array(
-                        0 => 'delete',
-                    ),
-                    'list_actions' => array(
-                        0 => 'new',
                     ),
                 ),
                 'filter' => array(
@@ -3216,21 +3322,33 @@ class appDevDebugProjectContainer extends Container
                         ),
                     ),
                 ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
                 'controller' => 'LyraAdminBundle:Admin',
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
                 ),
-                'services' => array(
-                    'model_manager' => 'lyra_admin.default.model_manager',
-                ),
                 'route_prefix' => 'lyra_admin_listing',
                 'route_pattern_prefix' => 'listing',
-                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+                'theme' => 'bundles/lyraadmin/css/ui/smoothness',
             ),
             'lyra_admin.listing.form.options' => array(
                 'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
                 'actions' => array(
+                    'publish' => array(
+                        'text' => 'Publish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'unpublish' => array(
+                        'text' => 'Unpublish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
                     'new' => array(
                         'route_pattern' => 'new',
                         'route_defaults' => array(
@@ -3239,6 +3357,18 @@ class appDevDebugProjectContainer extends Container
                         'icon' => 'circle-plus',
                         'text' => 'New listing',
                         'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'expired' => array(
+                        'route_pattern' => 'expired',
+                        'text' => 'Delete expired',
+                        'icon' => 'trash',
+                        'dialog' => array(
+                            'title' => 'Confirm delete expired',
+                            'message' => 'Do you really want to delete all expired listings?',
+                        ),
+                        'route_defaults' => array(
+
+                        ),
                     ),
                     'index' => array(
                         'route_pattern' => 'list/{page}/{field}/{order}',
@@ -3331,21 +3461,33 @@ class appDevDebugProjectContainer extends Container
                         ),
                     ),
                 ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
                 'controller' => 'LyraAdminBundle:Admin',
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
                 ),
-                'services' => array(
-                    'model_manager' => 'lyra_admin.default.model_manager',
-                ),
                 'route_prefix' => 'lyra_admin_listing',
                 'route_pattern_prefix' => 'listing',
-                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+                'theme' => 'bundles/lyraadmin/css/ui/smoothness',
             ),
             'lyra_admin.listing.filter.options' => array(
                 'class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
                 'actions' => array(
+                    'publish' => array(
+                        'text' => 'Publish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
+                    'unpublish' => array(
+                        'text' => 'Unpublish',
+                        'route_defaults' => array(
+
+                        ),
+                    ),
                     'new' => array(
                         'route_pattern' => 'new',
                         'route_defaults' => array(
@@ -3354,6 +3496,18 @@ class appDevDebugProjectContainer extends Container
                         'icon' => 'circle-plus',
                         'text' => 'New listing',
                         'trans_domain' => 'LyraAdminBundle',
+                    ),
+                    'expired' => array(
+                        'route_pattern' => 'expired',
+                        'text' => 'Delete expired',
+                        'icon' => 'trash',
+                        'dialog' => array(
+                            'title' => 'Confirm delete expired',
+                            'message' => 'Do you really want to delete all expired listings?',
+                        ),
+                        'route_defaults' => array(
+
+                        ),
                     ),
                     'index' => array(
                         'route_pattern' => 'list/{page}/{field}/{order}',
@@ -3412,17 +3566,17 @@ class appDevDebugProjectContainer extends Container
                         ),
                     ),
                 ),
+                'services' => array(
+                    'model_manager' => 'lyra_admin.default.model_manager',
+                ),
                 'controller' => 'LyraAdminBundle:Admin',
                 'trans_domain' => 'LyraAdminBundle',
                 'fields' => array(
 
                 ),
-                'services' => array(
-                    'model_manager' => 'lyra_admin.default.model_manager',
-                ),
                 'route_prefix' => 'lyra_admin_listing',
                 'route_pattern_prefix' => 'listing',
-                'theme' => 'bundles/lyraadmin/css/ui/ui-lightness',
+                'theme' => 'bundles/lyraadmin/css/ui/smoothness',
             ),
             'lyra_admin.listing.class' => 'Acme\\ClassifiedsBundle\\Entity\\Listing',
             'lyra_admin.routes' => array(
@@ -3435,6 +3589,12 @@ class appDevDebugProjectContainer extends Container
                         'actions' => array(
                             'new' => array(
                                 'route_pattern' => 'new',
+                                'route_defaults' => array(
+
+                                ),
+                            ),
+                            'expired' => array(
+                                'route_pattern' => 'expired',
                                 'route_defaults' => array(
 
                                 ),

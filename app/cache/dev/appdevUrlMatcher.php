@@ -209,14 +209,19 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // lyra_admin_listing_index
-        if (0 === strpos($pathinfo, '/admin/listing/list') && preg_match('#^/admin/listing/list(?:/(?P<page>[^/]+?)(?:/(?P<field>[^/]+?)(?:/(?P<order>[^/]+?))?)?)?$#xs', $pathinfo, $matches)) {
-            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::indexAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'index',  'page' => NULL,  'field' => NULL,  'order' => NULL,)), array('_route' => 'lyra_admin_listing_index'));
-        }
-
         // lyra_admin_listing_new
         if ($pathinfo === '/admin/listing/new') {
             return array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::newAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'new',  '_route' => 'lyra_admin_listing_new',);
+        }
+
+        // lyra_admin_listing_expired
+        if ($pathinfo === '/admin/listing/expired') {
+            return array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::expiredAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'expired',  '_route' => 'lyra_admin_listing_expired',);
+        }
+
+        // lyra_admin_listing_index
+        if (0 === strpos($pathinfo, '/admin/listing/list') && preg_match('#^/admin/listing/list(?:/(?P<page>[^/]+?)(?:/(?P<field>[^/]+?)(?:/(?P<order>[^/]+?))?)?)?$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Lyra\\AdminBundle\\Controller\\AdminController::indexAction',  'lyra_admin_model' => 'listing',  'lyra_admin_action' => 'index',  'page' => NULL,  'field' => NULL,  'order' => NULL,)), array('_route' => 'lyra_admin_listing_index'));
         }
 
         // lyra_admin_listing_edit

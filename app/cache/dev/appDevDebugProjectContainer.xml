@@ -376,13 +376,32 @@
     <parameter key="lyra_admin.dialog_renderer.class">Lyra\AdminBundle\Renderer\DialogRenderer</parameter>
     <parameter key="lyra_admin.filter_renderer.class">Lyra\AdminBundle\Renderer\FilterRenderer</parameter>
     <parameter key="lyra_admin.options" type="collection">
+      <parameter key="theme">bundles/lyraadmin/css/ui/smoothness</parameter>
       <parameter key="models" type="collection">
         <parameter key="listing" type="collection">
           <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
           <parameter key="actions" type="collection">
+            <parameter key="publish" type="collection">
+              <parameter key="text">Publish</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="unpublish" type="collection">
+              <parameter key="text">Unpublish</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
             <parameter key="new" type="collection">
               <parameter key="text">New listing</parameter>
               <parameter key="icon">circle-plus</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="expired" type="collection">
+              <parameter key="route_pattern">expired</parameter>
+              <parameter key="text">Delete expired</parameter>
+              <parameter key="icon">trash</parameter>
+              <parameter key="dialog" type="collection">
+                <parameter key="title">Confirm delete expired</parameter>
+                <parameter key="message">Do you really want to delete all expired listings?</parameter>
+              </parameter>
               <parameter key="route_defaults" type="collection"/>
             </parameter>
           </parameter>
@@ -400,8 +419,8 @@
                 </parameter>
               </parameter>
               <parameter key="published" type="collection">
+                <parameter key="sortable">false</parameter>
                 <parameter key="type">null</parameter>
-                <parameter key="sortable">true</parameter>
                 <parameter key="format">null</parameter>
                 <parameter key="format_function">null</parameter>
                 <parameter key="boolean_actions" type="collection">
@@ -410,15 +429,25 @@
                 </parameter>
               </parameter>
               <parameter key="posted_at" type="collection">
+                <parameter key="label">Date</parameter>
+                <parameter key="format">j/M/Y</parameter>
                 <parameter key="type">null</parameter>
                 <parameter key="sortable">true</parameter>
-                <parameter key="format">null</parameter>
                 <parameter key="format_function">null</parameter>
                 <parameter key="boolean_actions" type="collection">
                   <parameter>_boolean_on</parameter>
                   <parameter>_boolean_off</parameter>
                 </parameter>
               </parameter>
+            </parameter>
+            <parameter key="batch_actions" type="collection">
+              <parameter>publish</parameter>
+              <parameter>unpublish</parameter>
+              <parameter>delete</parameter>
+            </parameter>
+            <parameter key="list_actions" type="collection">
+              <parameter>new</parameter>
+              <parameter>expired</parameter>
             </parameter>
             <parameter key="template">LyraAdminBundle:Admin:index.html.twig</parameter>
             <parameter key="max_page_rows">20</parameter>
@@ -430,12 +459,6 @@
             <parameter key="object_actions" type="collection">
               <parameter>edit</parameter>
               <parameter>delete</parameter>
-            </parameter>
-            <parameter key="batch_actions" type="collection">
-              <parameter>delete</parameter>
-            </parameter>
-            <parameter key="list_actions" type="collection">
-              <parameter>new</parameter>
             </parameter>
           </parameter>
           <parameter key="form" type="collection">
@@ -476,17 +499,16 @@
               <parameter key="published" type="collection"/>
             </parameter>
           </parameter>
-          <parameter key="controller">LyraAdminBundle:Admin</parameter>
-          <parameter key="trans_domain">LyraAdminBundle</parameter>
-          <parameter key="fields" type="collection"/>
           <parameter key="services" type="collection">
             <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
           </parameter>
+          <parameter key="controller">LyraAdminBundle:Admin</parameter>
+          <parameter key="trans_domain">LyraAdminBundle</parameter>
+          <parameter key="fields" type="collection"/>
         </parameter>
       </parameter>
       <parameter key="db_driver">orm</parameter>
       <parameter key="route_pattern_prefix">admin</parameter>
-      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
       <parameter key="actions" type="collection">
         <parameter key="index" type="collection">
           <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
@@ -536,12 +558,30 @@
     <parameter key="lyra_admin.listing.options" type="collection">
       <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
       <parameter key="actions" type="collection">
+        <parameter key="publish" type="collection">
+          <parameter key="text">Publish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="unpublish" type="collection">
+          <parameter key="text">Unpublish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
         <parameter key="new" type="collection">
           <parameter key="route_pattern">new</parameter>
           <parameter key="route_defaults" type="collection"/>
           <parameter key="icon">circle-plus</parameter>
           <parameter key="text">New listing</parameter>
           <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="expired" type="collection">
+          <parameter key="route_pattern">expired</parameter>
+          <parameter key="text">Delete expired</parameter>
+          <parameter key="icon">trash</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">Confirm delete expired</parameter>
+            <parameter key="message">Do you really want to delete all expired listings?</parameter>
+          </parameter>
+          <parameter key="route_defaults" type="collection"/>
         </parameter>
         <parameter key="index" type="collection">
           <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
@@ -598,8 +638,8 @@
             <parameter key="property_name">ad_title</parameter>
           </parameter>
           <parameter key="published" type="collection">
+            <parameter key="sortable">false</parameter>
             <parameter key="type">null</parameter>
-            <parameter key="sortable">true</parameter>
             <parameter key="format">null</parameter>
             <parameter key="format_function">null</parameter>
             <parameter key="boolean_actions" type="collection">
@@ -612,9 +652,10 @@
             <parameter key="property_name">published</parameter>
           </parameter>
           <parameter key="posted_at" type="collection">
+            <parameter key="label">Date</parameter>
+            <parameter key="format">j/M/Y</parameter>
             <parameter key="type">null</parameter>
             <parameter key="sortable">true</parameter>
-            <parameter key="format">null</parameter>
             <parameter key="format_function">null</parameter>
             <parameter key="boolean_actions" type="collection">
               <parameter>_boolean_on</parameter>
@@ -622,9 +663,17 @@
             </parameter>
             <parameter key="sorted">false</parameter>
             <parameter key="name">posted_at</parameter>
-            <parameter key="label">Posted at</parameter>
             <parameter key="property_name">posted_at</parameter>
           </parameter>
+        </parameter>
+        <parameter key="batch_actions" type="collection">
+          <parameter>publish</parameter>
+          <parameter>unpublish</parameter>
+          <parameter>delete</parameter>
+        </parameter>
+        <parameter key="list_actions" type="collection">
+          <parameter>new</parameter>
+          <parameter>expired</parameter>
         </parameter>
         <parameter key="template">LyraAdminBundle:Admin:index.html.twig</parameter>
         <parameter key="max_page_rows">20</parameter>
@@ -636,12 +685,6 @@
         <parameter key="object_actions" type="collection">
           <parameter>edit</parameter>
           <parameter>delete</parameter>
-        </parameter>
-        <parameter key="batch_actions" type="collection">
-          <parameter>delete</parameter>
-        </parameter>
-        <parameter key="list_actions" type="collection">
-          <parameter>new</parameter>
         </parameter>
       </parameter>
       <parameter key="form" type="collection">
@@ -682,25 +725,43 @@
           <parameter key="published" type="collection"/>
         </parameter>
       </parameter>
-      <parameter key="controller">LyraAdminBundle:Admin</parameter>
-      <parameter key="trans_domain">LyraAdminBundle</parameter>
-      <parameter key="fields" type="collection"/>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
       <parameter key="route_prefix">lyra_admin_listing</parameter>
       <parameter key="route_pattern_prefix">listing</parameter>
-      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/smoothness</parameter>
     </parameter>
     <parameter key="lyra_admin.listing.actions.options" type="collection">
       <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
       <parameter key="actions" type="collection">
+        <parameter key="publish" type="collection">
+          <parameter key="text">Publish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="unpublish" type="collection">
+          <parameter key="text">Unpublish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
         <parameter key="new" type="collection">
           <parameter key="route_pattern">new</parameter>
           <parameter key="route_defaults" type="collection"/>
           <parameter key="icon">circle-plus</parameter>
           <parameter key="text">New listing</parameter>
           <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="expired" type="collection">
+          <parameter key="route_pattern">expired</parameter>
+          <parameter key="text">Delete expired</parameter>
+          <parameter key="icon">trash</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">Confirm delete expired</parameter>
+            <parameter key="message">Do you really want to delete all expired listings?</parameter>
+          </parameter>
+          <parameter key="route_defaults" type="collection"/>
         </parameter>
         <parameter key="index" type="collection">
           <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
@@ -747,25 +808,43 @@
           <parameter key="published" type="collection"/>
         </parameter>
       </parameter>
-      <parameter key="controller">LyraAdminBundle:Admin</parameter>
-      <parameter key="trans_domain">LyraAdminBundle</parameter>
-      <parameter key="fields" type="collection"/>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
       <parameter key="route_prefix">lyra_admin_listing</parameter>
       <parameter key="route_pattern_prefix">listing</parameter>
-      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/smoothness</parameter>
     </parameter>
     <parameter key="lyra_admin.listing.list.options" type="collection">
       <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
       <parameter key="actions" type="collection">
+        <parameter key="publish" type="collection">
+          <parameter key="text">Publish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="unpublish" type="collection">
+          <parameter key="text">Unpublish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
         <parameter key="new" type="collection">
           <parameter key="route_pattern">new</parameter>
           <parameter key="route_defaults" type="collection"/>
           <parameter key="icon">circle-plus</parameter>
           <parameter key="text">New listing</parameter>
           <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="expired" type="collection">
+          <parameter key="route_pattern">expired</parameter>
+          <parameter key="text">Delete expired</parameter>
+          <parameter key="icon">trash</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">Confirm delete expired</parameter>
+            <parameter key="message">Do you really want to delete all expired listings?</parameter>
+          </parameter>
+          <parameter key="route_defaults" type="collection"/>
         </parameter>
         <parameter key="index" type="collection">
           <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
@@ -822,8 +901,8 @@
             <parameter key="property_name">ad_title</parameter>
           </parameter>
           <parameter key="published" type="collection">
+            <parameter key="sortable">false</parameter>
             <parameter key="type">null</parameter>
-            <parameter key="sortable">true</parameter>
             <parameter key="format">null</parameter>
             <parameter key="format_function">null</parameter>
             <parameter key="boolean_actions" type="collection">
@@ -836,9 +915,10 @@
             <parameter key="property_name">published</parameter>
           </parameter>
           <parameter key="posted_at" type="collection">
+            <parameter key="label">Date</parameter>
+            <parameter key="format">j/M/Y</parameter>
             <parameter key="type">null</parameter>
             <parameter key="sortable">true</parameter>
-            <parameter key="format">null</parameter>
             <parameter key="format_function">null</parameter>
             <parameter key="boolean_actions" type="collection">
               <parameter>_boolean_on</parameter>
@@ -846,9 +926,17 @@
             </parameter>
             <parameter key="sorted">false</parameter>
             <parameter key="name">posted_at</parameter>
-            <parameter key="label">Posted at</parameter>
             <parameter key="property_name">posted_at</parameter>
           </parameter>
+        </parameter>
+        <parameter key="batch_actions" type="collection">
+          <parameter>publish</parameter>
+          <parameter>unpublish</parameter>
+          <parameter>delete</parameter>
+        </parameter>
+        <parameter key="list_actions" type="collection">
+          <parameter>new</parameter>
+          <parameter>expired</parameter>
         </parameter>
         <parameter key="template">LyraAdminBundle:Admin:index.html.twig</parameter>
         <parameter key="max_page_rows">20</parameter>
@@ -861,12 +949,6 @@
           <parameter>edit</parameter>
           <parameter>delete</parameter>
         </parameter>
-        <parameter key="batch_actions" type="collection">
-          <parameter>delete</parameter>
-        </parameter>
-        <parameter key="list_actions" type="collection">
-          <parameter>new</parameter>
-        </parameter>
       </parameter>
       <parameter key="filter" type="collection">
         <parameter key="title">Search listings</parameter>
@@ -876,25 +958,43 @@
           <parameter key="published" type="collection"/>
         </parameter>
       </parameter>
-      <parameter key="controller">LyraAdminBundle:Admin</parameter>
-      <parameter key="trans_domain">LyraAdminBundle</parameter>
-      <parameter key="fields" type="collection"/>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
       <parameter key="route_prefix">lyra_admin_listing</parameter>
       <parameter key="route_pattern_prefix">listing</parameter>
-      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/smoothness</parameter>
     </parameter>
     <parameter key="lyra_admin.listing.form.options" type="collection">
       <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
       <parameter key="actions" type="collection">
+        <parameter key="publish" type="collection">
+          <parameter key="text">Publish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="unpublish" type="collection">
+          <parameter key="text">Unpublish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
         <parameter key="new" type="collection">
           <parameter key="route_pattern">new</parameter>
           <parameter key="route_defaults" type="collection"/>
           <parameter key="icon">circle-plus</parameter>
           <parameter key="text">New listing</parameter>
           <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="expired" type="collection">
+          <parameter key="route_pattern">expired</parameter>
+          <parameter key="text">Delete expired</parameter>
+          <parameter key="icon">trash</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">Confirm delete expired</parameter>
+            <parameter key="message">Do you really want to delete all expired listings?</parameter>
+          </parameter>
+          <parameter key="route_defaults" type="collection"/>
         </parameter>
         <parameter key="index" type="collection">
           <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
@@ -971,25 +1071,43 @@
           <parameter key="published" type="collection"/>
         </parameter>
       </parameter>
-      <parameter key="controller">LyraAdminBundle:Admin</parameter>
-      <parameter key="trans_domain">LyraAdminBundle</parameter>
-      <parameter key="fields" type="collection"/>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
       <parameter key="route_prefix">lyra_admin_listing</parameter>
       <parameter key="route_pattern_prefix">listing</parameter>
-      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/smoothness</parameter>
     </parameter>
     <parameter key="lyra_admin.listing.filter.options" type="collection">
       <parameter key="class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
       <parameter key="actions" type="collection">
+        <parameter key="publish" type="collection">
+          <parameter key="text">Publish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
+        <parameter key="unpublish" type="collection">
+          <parameter key="text">Unpublish</parameter>
+          <parameter key="route_defaults" type="collection"/>
+        </parameter>
         <parameter key="new" type="collection">
           <parameter key="route_pattern">new</parameter>
           <parameter key="route_defaults" type="collection"/>
           <parameter key="icon">circle-plus</parameter>
           <parameter key="text">New listing</parameter>
           <parameter key="trans_domain">LyraAdminBundle</parameter>
+        </parameter>
+        <parameter key="expired" type="collection">
+          <parameter key="route_pattern">expired</parameter>
+          <parameter key="text">Delete expired</parameter>
+          <parameter key="icon">trash</parameter>
+          <parameter key="dialog" type="collection">
+            <parameter key="title">Confirm delete expired</parameter>
+            <parameter key="message">Do you really want to delete all expired listings?</parameter>
+          </parameter>
+          <parameter key="route_defaults" type="collection"/>
         </parameter>
         <parameter key="index" type="collection">
           <parameter key="route_pattern">list/{page}/{field}/{order}</parameter>
@@ -1036,15 +1154,15 @@
           <parameter key="published" type="collection"/>
         </parameter>
       </parameter>
-      <parameter key="controller">LyraAdminBundle:Admin</parameter>
-      <parameter key="trans_domain">LyraAdminBundle</parameter>
-      <parameter key="fields" type="collection"/>
       <parameter key="services" type="collection">
         <parameter key="model_manager">lyra_admin.default.model_manager</parameter>
       </parameter>
+      <parameter key="controller">LyraAdminBundle:Admin</parameter>
+      <parameter key="trans_domain">LyraAdminBundle</parameter>
+      <parameter key="fields" type="collection"/>
       <parameter key="route_prefix">lyra_admin_listing</parameter>
       <parameter key="route_pattern_prefix">listing</parameter>
-      <parameter key="theme">bundles/lyraadmin/css/ui/ui-lightness</parameter>
+      <parameter key="theme">bundles/lyraadmin/css/ui/smoothness</parameter>
     </parameter>
     <parameter key="lyra_admin.listing.class">Acme\ClassifiedsBundle\Entity\Listing</parameter>
     <parameter key="lyra_admin.routes" type="collection">
@@ -1057,6 +1175,10 @@
           <parameter key="actions" type="collection">
             <parameter key="new" type="collection">
               <parameter key="route_pattern">new</parameter>
+              <parameter key="route_defaults" type="collection"/>
+            </parameter>
+            <parameter key="expired" type="collection">
+              <parameter key="route_pattern">expired</parameter>
               <parameter key="route_defaults" type="collection"/>
             </parameter>
             <parameter key="index" type="collection">
@@ -3001,6 +3123,10 @@
             <argument key="actions" type="collection">
               <argument key="new" type="collection">
                 <argument key="route_pattern">new</argument>
+                <argument key="route_defaults" type="collection"/>
+              </argument>
+              <argument key="expired" type="collection">
+                <argument key="route_pattern">expired</argument>
                 <argument key="route_defaults" type="collection"/>
               </argument>
               <argument key="index" type="collection">
